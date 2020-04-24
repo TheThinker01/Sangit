@@ -13,6 +13,6 @@
         <property name="hibernate.format_sql">true</property>
         <!-- DB schema will be updated if needed -->
          <property name="hibernate.hbm2ddl.auto">update</property>
-<!--        <mapping class="Bean.Student"></mapping>-->
+        <mapping class="Bean.User"></mapping>
     </session-factory>
 </hibernate-configuration>
