@@ -9,21 +9,22 @@
 <html>
 <head>
     <title>Login</title>
-    <%@include file="../common/commonlinks.jsp " %>
+    <%@include file="../common/commonlinks.jsp"%>
 </head>
 <body>
 
 <div class="container">
     <form method="post" action="/login" >
+        <input type="hidden" name="category" value="user" />
         <fieldset class="form-group">
             <label>Username</label>
-            <input type="text" name="username" value="Username Please." class="form-control" required/>
+            <input type="text" name="username"  class="form-control" required/>
         </fieldset>
         <fieldset class="form-group">
             <label>Password</label>
-            <input type="password" name="password" value="Password Maybe?" class="form-control" required/>
+            <input type="password" name="password" class="form-control" required/>
         </fieldset>
-
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
 </div>
 </body>

@@ -66,7 +66,7 @@ public class UserDeclaration implements UserInterface{
 
     @Override
     public User selectUser(long id) {
-        Query query = session.createQuery("from Student where s_id=:id");
+        Query query = session.createQuery("from User where id=:id");
         query.setLong("id", id);
         List lis = query.list();
         ListIterator listIterator = lis.listIterator();
@@ -118,6 +118,7 @@ public class UserDeclaration implements UserInterface{
             Criteria criteria = session.createCriteria(User.class);
             criteria.add(Restrictions.eq("username",u.getUsername()));
             User u2 =(User) criteria.uniqueResult();
+            // BCrypt requires that the first is plaintext and the second is hashed
             if(BCrypt.checkpw(u.getPassword(),u2.getPassword()))
             {
                 return u2;

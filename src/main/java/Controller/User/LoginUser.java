@@ -24,7 +24,11 @@ public class LoginUser extends HttpServlet {
         String category;
         category = req.getParameter("category");
         username = req.getParameter("username");
+        System.out.println("The User is logged in with "+username);
+
         password = req.getParameter("password");
+        System.out.println("The User is logged in with "+password);
+
         User u = new User();
         u.setPassword(password);
         u.setUsername(username);
@@ -32,13 +36,14 @@ public class LoginUser extends HttpServlet {
         User u2 = ui.signIn(u);
         if(u2!=null)
         {
-            req.getSession().setAttribute("LoggedIn",u2);
-            resp.sendRedirect("homepage.jsp");//TODO: Replace this with the homepage link for normal user
+            req.getSession().setAttribute("loggedIn",u2);
+//            resp.sendRedirect("homepage.jsp");//TODO: Replace this with the homepage link for normal user
             // and admin panel link for admin users
-            System.out.println("The User is logged in with "+username);
+            System.out.println("The User is logged in with "+u2.getName());
         }
         else{
             // TODO : Handle the user incorrect details appropriately
+            System.out.println("The User is not logged in");
         }
     }
 }
