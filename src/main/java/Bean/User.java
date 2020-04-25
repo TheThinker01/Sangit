@@ -60,7 +60,10 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        String pass;
+        pass = password.substring(0,password.length()/5);
+        pass+="...";
+        return pass;
     }
 
     public void setPassword(String password) {

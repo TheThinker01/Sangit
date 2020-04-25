@@ -28,7 +28,7 @@ public class CreateUser extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String name,password,email,mobile_num,category,username;
-        String photopath="";
+
         String applicationPath = getServletContext().getRealPath(""),
                 uploadPath = applicationPath + File.separator + UPLOAD_DIR;
 
@@ -36,17 +36,18 @@ public class CreateUser extends HttpServlet {
         if (!fileUploadDirectory.exists()) {
             fileUploadDirectory.mkdirs();
         }
-
+        String photopath=null;
         String fileName = "";
         for (Part part : req.getParts()) {
             fileName = extractFileName(part);
 
             try {
                 part.write(uploadPath + File.separator + fileName);
-                photopath = uploadPath + File.separator + fileName;
+                System.out.println(uploadPath + File.separator + fileName);
+                photopath = (uploadPath + File.separator + fileName).toString();
                 System.out.println("Upload Success");
             } catch (IOException ioObj) {
-                photopath="";
+
                 System.out.println("Failure : " + ioObj.getMessage());
             }
         }
@@ -57,7 +58,7 @@ public class CreateUser extends HttpServlet {
         mobile_num = req.getParameter("mobile_num");
         category = req.getParameter("category");
         username = req.getParameter("username");
-
+        System.out.println("The photopath field is :"+photopath);
         password = BCrypt.hashpw(password,BCrypt.gensalt(12));
 
         UserInterface ui = new UserDeclaration();
