@@ -14,7 +14,14 @@
 <body>
 
 <div class="container">
-    <form method="post" action="/login" >
+
+    <div class="alert alert-${mtype}" role="alert">
+    <p>${error}</p>
+    <hr>
+<%--        TODO: Login Page needs to look better--%>
+    </div>
+
+    <form method="post" action="/login?next=${next}" >
         <input type="hidden" name="category" value="user" />
         <fieldset class="form-group">
             <label>Username</label>

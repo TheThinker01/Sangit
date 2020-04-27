@@ -12,5 +12,5 @@ public interface UserInterface {
     List selectAllUsers();
     List searchByName(String name);
     List searchByCategory(String category);
-    User signIn(User u);
+    User signIn(String username,String password);
 }

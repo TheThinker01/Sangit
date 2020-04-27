@@ -3,11 +3,9 @@ package DAO;
 import Bean.User;
 import HelpingClasses.BCrypt;
 import HelpingClasses.SessionFact;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -113,19 +111,26 @@ public class UserDeclaration implements UserInterface{
     }
 
     @Override
-    public User signIn(User u) {
+    public User signIn(String username,String password) {
+
         try{
-            Criteria criteria = session.createCriteria(User.class);
-            criteria.add(Restrictions.eq("username",u.getUsername()));
-            User u2 =(User) criteria.uniqueResult();
-            // BCrypt requires that the first is plaintext and the second is hashed
-            if(BCrypt.checkpw(u.getPassword(),u2.getPassword()))
-            {
-                return u2;
+            tr = session.beginTransaction();
+            Query query= session.createQuery("FROM User U WHERE U.username = :userName").setParameter("userName", username);
+            List lis = query.list();
+
+            ListIterator listIterator = lis.listIterator();
+            User user = (User) listIterator.next();
+
+            if (user != null && BCrypt.checkpw(password,user.getPassword())){
+                return user;
             }
-        }catch (Exception e)
-        {
-            System.out.println(e);
+            // commit transaction
+            tr.commit();
+        }catch(Exception e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            e.printStackTrace();
         }
         return null;
     }

@@ -36,6 +36,7 @@ public class UpdateUser extends HttpServlet {
             }
         }
         else{
+
             System.out.println("Nothing!!!");
             resp.sendRedirect("/login");
             return;
