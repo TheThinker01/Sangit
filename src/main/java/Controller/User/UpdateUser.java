@@ -36,10 +36,17 @@ public class UpdateUser extends HttpServlet {
             }
         }
         else{
-
+            // If user is not logged in then redirect to login page wit next parameter
+            String next = req.getRequestURI();
             System.out.println("Nothing!!!");
-            resp.sendRedirect("/login");
-            return;
+            String mtype = "danger";
+            String error = "You need to sign in to continue";
+            req.setAttribute("mtype",mtype);
+            req.setAttribute("error",error);
+            req.setAttribute("next",next);
+
+            req.getRequestDispatcher("WEB-INF/User/login.jsp").forward(req,resp);
+            return ;
         }
 
         User u = ui.selectUser(id);
