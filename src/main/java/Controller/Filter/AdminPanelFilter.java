@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/admin")
+@WebFilter(urlPatterns = "/admin/*")
 public class AdminPanelFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -17,10 +17,10 @@ public class AdminPanelFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
-        System.out.println(request.getRequestURI());
+//        System.out.println(request.getRequestURI());
         User u = (User)request.getSession().getAttribute("loggedIn");
         String next =request.getRequestURI();
-        if(u.getCategory().equals("Admin"))
+        if(u!=null && u.getCategory().equals("Admin"))
         {
             filterChain.doFilter(servletRequest,servletResponse);
         }
