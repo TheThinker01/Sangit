@@ -93,6 +93,9 @@ public class UpdateUser extends HttpServlet {
         UserInterface ui = new UserDeclaration();
         User temp = new User(name,  password,  email,  mobile_num, category, photopath , username);
         ui.updateUser(id,temp);
+        User u = ui.selectUser(id);
+        req.setAttribute("st",u);
+        req.getRequestDispatcher("/WEB-INF/User/showProfile.jsp").forward(req,resp);
     }
     private String extractFileName(Part part) {
         String fileName = "",
