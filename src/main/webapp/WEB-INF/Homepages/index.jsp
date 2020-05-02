@@ -8,14 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Sangit</title>
-    <link rel="stylesheet" href="/static/css/animate.css">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="static/css/animate.css">
+    <link rel="stylesheet" href="static/css/style.css">
     <script src="https://kit.fontawesome.com/194687f623.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="/static/js/main.js"></script>
+    <script src="static/js/main.js"></script>
 </head>
 
 <body>
@@ -91,7 +92,7 @@
     </div>
 
     <div class="main_container">
-        <div class="item">
+        <!-- <div class="item">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut sapiente adipisci nemo atque eligendi reprehenderit minima blanditiis eum quae aspernatur!
         </div>
         <div class="item">
@@ -102,9 +103,88 @@
         </div>
         <div class="item">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut sapiente adipisci nemo atque eligendi reprehenderit minima blanditiis eum quae aspernatur!
+        </div> -->
+        <div class="music-item">
+            <li song="Halsey - Bad At Love.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="4" style="display: none;">Bad At Love</li>
+            <div class="music-item-body">
+                <div class="music-item-hover">
+                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
+                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
+                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
+                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
+                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
+                </div>
+            </div>
+            <div class="music-item-text">
+                <div class="title"></div>
+                <div class="artist"></div>
+            </div>
+        </div>
+        <div class="music-item">
+            <li song="Halsey - You should be sad.mp3" cover="img/halsey.jpg" artist="Halsey" rating="4" style="display: none;">You should be sad</li>
+            <div class="music-item-body">
+                <div class="music-item-hover">
+                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
+                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
+                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
+                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
+                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
+                </div>
+            </div>
+            <div class="music-item-text">
+                <div class="title"></div>
+                <div class="artist"></div>
+            </div>
+        </div>
+        <div class="music-item">
+            <li song="Kina - get you the moon (ft. Snow).mp3" cover="img/kina.jpg" artist="Kina" rating="3" style="display: none;">Get you the moon</li>
+            <div class="music-item-body">
+                <div class="music-item-hover">
+                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
+                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
+                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
+                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
+                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
+                </div>
+            </div>
+            <div class="music-item-text">
+                <div class="title"></div>
+                <div class="artist"></div>
+            </div>
+        </div>
+        <div class="music-item">
+            <li song="Halsey - Bad At Love.mp3" cover="img/index.jpg" artist="Powfu" rating="5" style="display: none;">Deathbed</li>
+            <div class="music-item-body">
+                <div class="music-item-hover">
+                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
+                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
+                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
+                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
+                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
+                </div>
+            </div>
+            <div class="music-item-text">
+                <div class="title"></div>
+                <div class="artist"></div>
+            </div>
+        </div>
+        <div class="music-item">
+            <li song="I Just Wanna Shine.mp3" cover="img/sddefault4.jpg" artist="Fitz" rating="5" style="display: none;">I just wanna shine</li>
+            <div class="music-item-body">
+                <div class="music-item-hover">
+                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
+                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
+                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
+                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
+                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
+                </div>
+            </div>
+            <div class="music-item-text">
+                <div class="title"></div>
+                <div class="artist"></div>
+            </div>
         </div>
     </div>
-
     <div class="footer">
         <span class="audio-buttons" id="prev"><i class="fas fa-backward fa-2x"></i></span>
         <span class="audio-buttons" id="play"><i class="fab fa-google-play fa-3x"></i></span>
@@ -130,9 +210,12 @@
 
     <div class="song-queue" style="display:none;">
         <ul id="playlist">
-            <li song="Halsey - Bad At Love.mp3" cover="cover1.jpg" artist="Halsey">Bad At Love</li>
-            <li song="Halsey - You should be sad.mp3" cover="cover2.jpg" artist="Halsey">You Should Be sad</li>
-            <li song="Kina - get you the moon (ft. Snow).mp3" cover="cover3.jpg" artist="Kina">Get you the moon</li>
+            <li song="Halsey - Bad At Love.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="2" style="display: none;">Bad At Love</li>
+            <li song="Halsey - You should be sad.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="4" style="display: none;">You should be sad</li>
+            <li song="Kina - get you the moon (ft. Snow).mp3" cover="img/kina.jpg" artist="Kina" rating="3" style="display: none;">Get you the moon</li>
+            <li song="Halsey - Bad At Love.mp3" cover="img/index.jpg" artist="Powfu" rating="5" style="display: none;">Deathbed</li>
+            <li song="I Just Wanna Shine.mp3" cover="img/sddefault4.jpg" artist="Fitz" rating="5" style="display: none;">I just wanna shine</li>
+
 
         </ul>
     </div>

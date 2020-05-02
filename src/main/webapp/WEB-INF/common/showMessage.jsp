@@ -10,12 +10,22 @@
 <head>
     <title>The Site Says..</title>
     <%@include file="../common/commonlinks.jsp"%>
-
+<style>
+    .container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    .message{
+        width: 50vw;
+    }
+</style>
 
 </head>
 <body>
     <div class="container">
-        <div class="alert alert-${mtype}" role="alert">
+        <div class="alert alert-${mtype} message" role="alert">
             <h4 class="alert-heading">${heading}</h4>
             <p>${message}</p>
             <hr>

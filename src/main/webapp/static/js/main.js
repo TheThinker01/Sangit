@@ -1,15 +1,32 @@
 // Jquery Goes here 
 $(document).ready(function() {
 
-    // Initial Settings
+    ////////// Initial Settings
+
+    initAudio($('#playlist li:first-child'));
+
+    // Managing the song queue
+    var queue = $('ul#playlist li').toArray();
+
+    // shuffleArray(queue);
+    console.log(queue);
+
+    // Auto Play Next index
+    var index = 1; // First Element will be played by default
+
     var audio;
     $('#pause').hide();
     $('#mute').hide();
     $('.account-dropdown').hide();
     $('.search').hide();
+    $('.music-item-hover').hide();
+    $('.music-item-hover .pause').hide();
     var repeat = 0;
 
-    // On Dropdowns and Popups
+    // $('music-item-hover').hide();
+
+    ////////// On Dropdowns and Popups and glowups
+
     $(".hamburger").click(function() {
         $(".wrapper").toggleClass("collapse");
     });
@@ -24,23 +41,104 @@ $(document).ready(function() {
     })
 
 
-    // Submit Songs Search on Enter 
+    ////// Music Items Overlay Functions
+
+    $('.music-item-body').hover(function() {
+        // e here points to music-item-body
+        // we check if e's first child is a div or not and only then update the first child
+        // so that we dont fall into a repeated loop of selecting first childs i.e span, then icons etc
+        // // Then we toggle it
+        // var target = $(e.target);
+        // if (jQuery(target.children()[0]).is("div"))
+        //     target = target.children()[0];
+        // // console.log(target);
+        // target = jQuery(target);
+        // // target.setAttribute('style', 'display:block');
+        // target.toggle();
+        // console.log(target);
+
+        $(this).find('div').toggle();
+
+    });
+
+    // For Highlighting the buttons on overlay
+    $('.music-item-hover .music-overlay-buttons').on('mouseenter', function() {
+        // console.log(e);
+        // var target = jQuery(e.currentTarget);
+        // $(target).css('opacity', '1');
+        $(this).css('opacity', '1');
+    });
+
+    $('.music-item-hover .music-overlay-buttons').on('mouseleave', function(e) {
+        // console.log('loll');
+        // var target = jQuery(e.traget);
+        $(this).css('opacity', '0.75');
+    });
+
+    // Add song to queue button
+    $('.add-to-queue').click(function(e) {
+        e = jQuery(e.target);
+        var x = e.parents().eq(3);
+        var y = x.find('li');
+        var name = y.text();
+        console.log(queue);
+        queue.push(y[0]);
+        console.log(queue);
+        UpdateDomQueue();
+        alert('Song " ' + name + ' " was added to the end of your song queue');
+
+    });
+
+    // Pressing the play button
+    $('.music-item-hover .play').click(function() {
+        // First make all pause buttons disappear and play buttons appear
+        $('.music-item-hover .play').show();
+        $('.music-item-hover .pause').hide();
+        audio.pause();
+
+        // Then carry on with operation
+        var x = $(this).parents().eq(2);
+        var y = x.find('li');
+        var name = y.text();
+        // TODO -> COMPLETE THIS
+        console.log(y);
+        queue.unshift(y[0]);
+        console.log(queue);
+        index = 0;
+        var e = jQuery(queue[index]);
+        initAudio(e);
+        audio.play();
+        $('#play').hide();
+        $('#pause').show();
+        showDuration();
+        UpdateDomQueue();
+        alert('Song " ' + name + ' " is now playing');
+
+        // Finally make play button disappear for this element
+        // and pause appear
+        $(this).toggle();
+        $(this).next().toggle();
+    });
+
+    // Clicking on Pause button on the overlay
+    $('.music-item-hover .pause').click(function() {
+        audio.pause();
+        $('.music-item-hover .play').show();
+        $('.music-item-hover .pause').hide();
+        $('#play').show();
+        $('#pause').hide();
+    });
+
+
+
+    // Submit Songs Search on Enter
     $('.li-search').keyup(function(e) {
         if (e.which == 13)
             $('#search-form').submit();
     })
 
-    initAudio($('#playlist li:first-child'));
-
-    // Managing the song queue
-    var queue = $('ul#playlist li').toArray();
-
-    // shuffleArray(queue);
-    console.log(queue);
 
 
-    // Auto Play Next
-    var index = 1; // First Element will be played by default
     $(audio).bind('ended', function() {
         var e = jQuery(queue[index]);
         if (index != (queue.length - 1)) {
@@ -62,9 +160,48 @@ $(document).ready(function() {
 
 
 
-    // $('#add-song').click(function() {
 
-    // });
+    // getRatings();
+
+    // console.log($('.ratings'));
+    // Generate ratings for each songs from the ratings parameter
+    $('.ratings').each(function(index) {
+        var m = jQuery($('.ratings')[index]);
+        var x = m.parents().eq(2);
+        // console.log(x);
+        var y = x.find('li');
+        // console.log(y);
+        var rating = y.attr('rating');
+        // console.log(rating);
+        m.html(" ");
+        for (var i = 0; i < rating; i++) {
+            m.append('<i class = "fas fa-star fa-xs" > </i>');
+        }
+        for (var i = rating; i < 5; i++) {
+            m.append('<i class = "far fa-star fa-xs" > </i>');
+        }
+    });
+
+    // Generate The artist name and title for each tab  and the background image
+    $('.music-item').each(function(index) {
+        var m = jQuery($('.music-item')[index]);
+        var x = m.find('li');
+        // console.log(x);
+        var img = x.attr('cover');
+        var title = x.text();
+        var artist = x.attr('artist');
+        // console.log(img);
+        var l = m.find('.music-item-body');
+        l.css('background', 'url("' + img + '") no-repeat');
+
+        // get title
+        var p = m.find('.title');
+        p.text(title);
+        var q = m.find('.artist');
+        q.text(artist);
+
+        // console.log(title);
+    });
 
     // Audio Jqueries
 
@@ -76,7 +213,7 @@ $(document).ready(function() {
         var artist = element.attr('artist');
 
         // Create a New Audio Object
-        audio = new Audio('static/media/' + song);
+        audio = new Audio('media/' + song);
 
         if (!audio.currentTime) {
             $('#duration').html('0.00');
@@ -107,6 +244,9 @@ $(document).ready(function() {
         $('#pause').hide();
         $('#play').show();
 
+        // Also make all pause buttons disappear and play buttons appear
+        $('.music-item-hover .play').show();
+        $('.music-item-hover .pause').hide();
     });
 
     // Next Button

@@ -1,9 +1,8 @@
 package Bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class User {
@@ -14,10 +13,15 @@ public class User {
     @Column(unique = true,nullable = false)
     private String email,mobile_num,username;
     private String photopath;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Collection<Music> musicQueue = new ArrayList<Music>();
+
     public User() {
     }
 
     public User(String name, String password, String email, String mobile_num,String category,String photopath ,String username) {
+
         this.category = category;
         this.name = name;
         this.password = password;
@@ -25,6 +29,14 @@ public class User {
         this.mobile_num = mobile_num;
         this.username = username;
         this.photopath = photopath;
+    }
+
+    public Collection<Music> getMusicQueue() {
+        return musicQueue;
+    }
+
+    public void setMusicQueue(Collection<Music> musicQueue) {
+        this.musicQueue = musicQueue;
     }
 
     public String getphotopath() {
