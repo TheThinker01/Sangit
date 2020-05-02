@@ -186,14 +186,17 @@ $(document).ready(function() {
     $('.music-item').each(function(index) {
         var m = jQuery($('.music-item')[index]);
         var x = m.find('li');
-        // console.log(x);
+
         var img = x.attr('cover');
+        // console.log(img);
+        img = img.replace(/\\/g, "/" );
+
         var title = x.text();
         var artist = x.attr('artist');
         // console.log(img);
         var l = m.find('.music-item-body');
         l.css('background', 'url("' + img + '") no-repeat');
-
+        // console.log(l);
         // get title
         var p = m.find('.title');
         p.text(title);
@@ -208,12 +211,14 @@ $(document).ready(function() {
     function initAudio(element) {
 
         var song = element.attr('song');
+        // song = song.replace(/\\/g, "/" );
+        // console.log(song);
         var title = element.text();
         var cover = element.attr('cover');
         var artist = element.attr('artist');
 
         // Create a New Audio Object
-        audio = new Audio('media/' + song);
+        audio = new Audio(song);
 
         if (!audio.currentTime) {
             $('#duration').html('0.00');
@@ -382,6 +387,5 @@ $(document).ready(function() {
     function UpdateDomQueue() {
         $('#playlist').html(" ");
         $('#playlist').html(queue);
-
     }
 });

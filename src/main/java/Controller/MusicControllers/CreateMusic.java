@@ -29,11 +29,12 @@ public class CreateMusic extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String applicationPath = getServletContext().getRealPath(""),
-                uploadPath = applicationPath + File.separator + UPLOAD_DIR;
+                uploadPath = applicationPath+File.separator + UPLOAD_DIR;
 
         // Now album images are to be stored at /img
         // and the audio files in media itself
-        String imgPath = uploadPath + File.separator + "img" ;
+        String mPath = File.separator + UPLOAD_DIR ;
+        String imgPath = File.separator + UPLOAD_DIR + File.separator + "img" ;
 //        System.out.println("This is not working");
 
         File fileUploadDirectory = new File(uploadPath);
@@ -70,15 +71,15 @@ public class CreateMusic extends HttpServlet {
                 if(fileExtension.equals("mp3"))// If it is a audio file
                 {
                     System.out.println("Audio file detected");
-                    musicfile = (uploadPath + File.separator + fileName);
+                    musicfile = uploadPath + File.separator + fileName;
                     song = fileName;
                     part.write(uploadPath + File.separator + fileName);
                     System.out.println(uploadPath + File.separator + fileName);
                 }
                 if(fileExtension.equals("jpg") || fileExtension.equals("png")||fileExtension.equals("jpeg")) {
                     System.out.println("Image file detected");
-                    albumart = imgPath + File.separator + fileName;
-                    part.write(imgPath + File.separator + fileName);
+                    albumart = uploadPath+ File.separator + "img" + File.separator + fileName;
+                    part.write(uploadPath+ File.separator + "img" + File.separator + fileName);
                     System.out.println(imgPath + File.separator + fileName);
                 }System.out.println("Upload Success");
             } catch (IOException ioObj) {
@@ -88,7 +89,7 @@ public class CreateMusic extends HttpServlet {
         System.out.println(req.getParameter("title"));
 
 //        duration=0;
-        Music m = new Music(title,artist,albumart,song,musicfile,duration);
+        Music m = new Music(0,0,title,artist,albumart,song,musicfile,duration);
         MusicInterface mi = new MusicDeclaration();
         mi.musicInsert(m);
 

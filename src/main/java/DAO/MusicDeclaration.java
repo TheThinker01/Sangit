@@ -18,13 +18,14 @@ public class MusicDeclaration implements MusicInterface {
 
 
     public MusicDeclaration() {
-        sf = SessionFact.getSessionFact();
-        session = sf.openSession();
+
     }
 
 
     @Override
     public long musicInsert(Music m) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         tr= session.beginTransaction();
         long l = (Long) session.save(m);
         tr.commit();
@@ -39,6 +40,8 @@ public class MusicDeclaration implements MusicInterface {
 
     @Override
     public long updateMusic(long id, Music m) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         m.setId(id);// Set the id
         tr = session.beginTransaction();
         session.update(m);// Update the DB data having same id as st
@@ -48,6 +51,8 @@ public class MusicDeclaration implements MusicInterface {
 
     @Override
     public boolean deleteMusic(long id) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         try{
             tr = session.beginTransaction();
             Music music = session.get(Music.class,id);
@@ -65,6 +70,8 @@ public class MusicDeclaration implements MusicInterface {
 
     @Override
     public Music selectMusic(long id) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         Query query = session.createQuery("from User where id=:id");
         query.setLong("id", id);
         List lis = query.list();
@@ -75,8 +82,11 @@ public class MusicDeclaration implements MusicInterface {
 
     @Override
     public List selectAllMusics() {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         tr= session.beginTransaction();
         List res = session.createQuery("from Music").list();
+        session.close();
         if(res.size()>0)
             return res;
         else
@@ -85,6 +95,8 @@ public class MusicDeclaration implements MusicInterface {
 
     @Override
     public List searchByTitle(String title) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         if (title == null) {
             List res = selectAllMusics();
             return res;
@@ -101,13 +113,13 @@ public class MusicDeclaration implements MusicInterface {
     {
 //        Music  m = new Music("Breaking bad", "Archisman Pathak", "Nothing yet","will be updated","Soon",100);
         MusicInterface mi = new MusicDeclaration();
-//        for(int i=24;i<=29;i++)
+//        for(int i=31;i<=33;i++)
 //        {
 //            mi.deleteMusic(i);
 //
 //        }
 
-//        mi.deleteMusic(30);
+        mi.deleteMusic(41);
     }
 
 }

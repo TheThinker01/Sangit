@@ -12,18 +12,37 @@ public class Music {
     private long id;
 
     String title, artist, albumart, song, mediapath;
+    long rating,ratingCount;
     long duration;
 
     public Music() {
     }
 
-    public Music(String title, String artist, String albumart, String song, String mediapath, long duration) {
+    public Music(long rating,long ratingCount , String title, String artist, String albumart, String song, String mediapath, long duration) {
+        this.rating = rating;
+        this.ratingCount = ratingCount;
         this.title = title;
         this.artist = artist;
         this.albumart = albumart;
         this.song = song;
         this.mediapath = mediapath;
         this.duration = duration;
+    }
+
+    public long getRating() {
+        return rating;
+    }
+
+    public void setRating(long rating) {
+        this.rating = rating;
+    }
+
+    public long getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(long ratingCount) {
+        this.ratingCount = ratingCount;
     }
 
     public long getId() {

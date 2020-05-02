@@ -1,3 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="DAO.MusicDeclaration" %>
+<%@ page import="DAO.MusicInterface" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ListIterator" %>
 <%--
   Created by IntelliJ IDEA.
   User: archi
@@ -92,98 +97,34 @@
     </div>
 
     <div class="main_container">
-        <!-- <div class="item">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut sapiente adipisci nemo atque eligendi reprehenderit minima blanditiis eum quae aspernatur!
-        </div>
-        <div class="item">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut sapiente adipisci nemo atque eligendi reprehenderit minima blanditiis eum quae aspernatur!
-        </div>
-        <div class="item">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut sapiente adipisci nemo atque eligendi reprehenderit minima blanditiis eum quae aspernatur!
-        </div>
-        <div class="item">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut sapiente adipisci nemo atque eligendi reprehenderit minima blanditiis eum quae aspernatur!
-        </div> -->
-        <div class="music-item">
-            <li song="Halsey - Bad At Love.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="4" style="display: none;">Bad At Love</li>
-            <div class="music-item-body">
-                <div class="music-item-hover">
-                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
-                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
-                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
-                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
-                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
+        <%
+            MusicInterface mi = new MusicDeclaration();
+            List musiclist;
+            musiclist = mi.selectAllMusics();
+            ListIterator it = null;
+            if(musiclist!=null) {
+               it = musiclist.listIterator();
+            }
+            pageContext.setAttribute("it",it);
+        %>
+        <c:forEach items="${it}" var="music">
+            <div class="music-item">
+                <li song="/music?path=${music.getMediapath()}" cover="/img?path=${music.getAlbumart()}" artist="${music.getArtist()}" rating="${music.getRating()}" style="display: none;"> ${music.getTitle()}</li>
+                <div class="music-item-body">
+                    <div class="music-item-hover">
+                        <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
+                        <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
+                        <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
+                        <span class="add-to-queue music-overlay-buttons" id="${music.getId()}" ><i class="fas fa-plus-circle fa-xs"></i></span>
+                        <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
+                    </div>
+                </div>
+                <div class="music-item-text">
+                    <div class="title"></div>
+                    <div class="artist"></div>
                 </div>
             </div>
-            <div class="music-item-text">
-                <div class="title"></div>
-                <div class="artist"></div>
-            </div>
-        </div>
-        <div class="music-item">
-            <li song="Halsey - You should be sad.mp3" cover="img/halsey.jpg" artist="Halsey" rating="4" style="display: none;">You should be sad</li>
-            <div class="music-item-body">
-                <div class="music-item-hover">
-                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
-                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
-                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
-                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
-                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
-                </div>
-            </div>
-            <div class="music-item-text">
-                <div class="title"></div>
-                <div class="artist"></div>
-            </div>
-        </div>
-        <div class="music-item">
-            <li song="Kina - get you the moon (ft. Snow).mp3" cover="img/kina.jpg" artist="Kina" rating="3" style="display: none;">Get you the moon</li>
-            <div class="music-item-body">
-                <div class="music-item-hover">
-                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
-                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
-                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
-                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
-                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
-                </div>
-            </div>
-            <div class="music-item-text">
-                <div class="title"></div>
-                <div class="artist"></div>
-            </div>
-        </div>
-        <div class="music-item">
-            <li song="Halsey - Bad At Love.mp3" cover="img/index.jpg" artist="Powfu" rating="5" style="display: none;">Deathbed</li>
-            <div class="music-item-body">
-                <div class="music-item-hover">
-                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
-                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
-                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
-                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
-                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
-                </div>
-            </div>
-            <div class="music-item-text">
-                <div class="title"></div>
-                <div class="artist"></div>
-            </div>
-        </div>
-        <div class="music-item">
-            <li song="I Just Wanna Shine.mp3" cover="img/sddefault4.jpg" artist="Fitz" rating="5" style="display: none;">I just wanna shine</li>
-            <div class="music-item-body">
-                <div class="music-item-hover">
-                    <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
-                    <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
-                    <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
-                    <span class="add-to-queue music-overlay-buttons"><i class="fas fa-plus-circle fa-xs"></i></span>
-                    <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
-                </div>
-            </div>
-            <div class="music-item-text">
-                <div class="title"></div>
-                <div class="artist"></div>
-            </div>
-        </div>
+        </c:forEach>
     </div>
     <div class="footer">
         <span class="audio-buttons" id="prev"><i class="fas fa-backward fa-2x"></i></span>
@@ -210,17 +151,28 @@
 
     <div class="song-queue" style="display:none;">
         <ul id="playlist">
-            <li song="Halsey - Bad At Love.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="2" style="display: none;">Bad At Love</li>
-            <li song="Halsey - You should be sad.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="4" style="display: none;">You should be sad</li>
-            <li song="Kina - get you the moon (ft. Snow).mp3" cover="img/kina.jpg" artist="Kina" rating="3" style="display: none;">Get you the moon</li>
-            <li song="Halsey - Bad At Love.mp3" cover="img/index.jpg" artist="Powfu" rating="5" style="display: none;">Deathbed</li>
-            <li song="I Just Wanna Shine.mp3" cover="img/sddefault4.jpg" artist="Fitz" rating="5" style="display: none;">I just wanna shine</li>
+            <%
+                List musiclist2 = mi.selectAllMusics();
+                ListIterator it2 = null;
+                if(musiclist2!=null) {
+                    it2= musiclist2.listIterator();
+                }
+                pageContext.setAttribute("it2",it2);
+            %>
+            <c:forEach items="${it2}" var="music2">
+                <li song="/music?path=${music2.getMediapath()}" cover="/img?path=${music2.getAlbumart()}" artist="${music2.getArtist()}" rating="${music2.getRating()}" style="display: none;"> ${music2.getTitle()}</li>
+            </c:forEach>
+
+<%--            <li song="Halsey - Bad At Love.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="2" style="display: none;">Bad At Love</li>--%>
+<%--            <li song="Halsey - You should be sad.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="4" style="display: none;">You should be sad</li>--%>
+<%--            <li song="Kina - get you the moon (ft. Snow).mp3" cover="img/kina.jpg" artist="Kina" rating="3" style="display: none;">Get you the moon</li>--%>
+<%--            <li song="Halsey - Bad At Love.mp3" cover="img/index.jpg" artist="Powfu" rating="5" style="display: none;">Deathbed</li>--%>
+<%--            <li song="I Just Wanna Shine.mp3" cover="img/sddefault4.jpg" artist="Fitz" rating="5" style="display: none;">I just wanna shine</li>--%>
 
 
         </ul>
     </div>
 
-</div>
 
 </body>
 
