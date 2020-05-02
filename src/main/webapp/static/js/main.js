@@ -20,7 +20,8 @@ $(document).ready(function() {
     $('.account-dropdown').hide();
     $('.search').hide();
     $('.music-item-hover').hide();
-    $('.music-item-hover .pause').hide();
+    // $('.music-item-hover .pause').hide();
+    $('.container1').hide();
     var repeat = 0;
 
     // $('music-item-hover').hide();

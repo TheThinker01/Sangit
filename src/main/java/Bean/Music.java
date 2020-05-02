@@ -3,6 +3,7 @@ package Bean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Music {
@@ -99,5 +100,26 @@ public class Music {
 
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Music music = (Music) o;
+        return id == music.id &&
+                rating == music.rating &&
+                ratingCount == music.ratingCount &&
+                duration == music.duration &&
+                Objects.equals(title, music.title) &&
+                Objects.equals(artist, music.artist) &&
+                Objects.equals(albumart, music.albumart) &&
+                Objects.equals(song, music.song) &&
+                Objects.equals(mediapath, music.mediapath);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, artist, albumart, song, mediapath, rating, ratingCount, duration);
     }
 }

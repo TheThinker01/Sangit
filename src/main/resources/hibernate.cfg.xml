@@ -15,5 +15,6 @@
          <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="Bean.User"></mapping>
         <mapping class="Bean.Music"></mapping>
+        <mapping class="Bean.Playlist"></mapping>
     </session-factory>
 </hibernate-configuration>

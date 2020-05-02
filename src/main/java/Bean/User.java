@@ -3,6 +3,9 @@ package Bean;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 public class User {
@@ -14,8 +17,11 @@ public class User {
     private String email,mobile_num,username;
     private String photopath;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private Collection<Music> musicQueue = new ArrayList<Music>();
+
+    @OneToMany()
+    private Set<Playlist> playlists = new HashSet<Playlist>();
 
     public User() {
     }
@@ -29,6 +35,14 @@ public class User {
         this.mobile_num = mobile_num;
         this.username = username;
         this.photopath = photopath;
+    }
+
+    public Set<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(Set<Playlist> playlists) {
+        this.playlists = playlists;
     }
 
     public Collection<Music> getMusicQueue() {

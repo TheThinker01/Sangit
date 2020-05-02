@@ -1,5 +1,6 @@
 package DAO;
 
+import Bean.Music;
 import Bean.User;
 import HelpingClasses.BCrypt;
 import HelpingClasses.SessionFact;
@@ -8,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -18,12 +20,13 @@ public class UserDeclaration implements UserInterface{
     Transaction tr;
 
     public UserDeclaration() {
-        sf = SessionFact.getSessionFact();
-        session = sf.openSession();
+
     }
 
     @Override
     public long userInsert(User u) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         tr= session.beginTransaction();
         long l = (Long) session.save(u);
         tr.commit();
@@ -38,6 +41,8 @@ public class UserDeclaration implements UserInterface{
 
     @Override
     public long updateUser(long id,User u) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         u.setId(id);// Set the id
         tr = session.beginTransaction();
         session.update(u);// Update the DB data having same id as st
@@ -47,6 +52,8 @@ public class UserDeclaration implements UserInterface{
 
     @Override
     public boolean deleteUser(long id) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         try{
             tr = session.beginTransaction();
             User user = session.get(User.class,id);
@@ -64,6 +71,8 @@ public class UserDeclaration implements UserInterface{
 
     @Override
     public User selectUser(long id) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         Query query = session.createQuery("from User where id=:id");
         query.setLong("id", id);
         List lis = query.list();
@@ -74,6 +83,8 @@ public class UserDeclaration implements UserInterface{
 
     @Override
     public List selectAllUsers() {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         tr= session.beginTransaction();
         List res = session.createQuery("from User").list();
         if(res.size()>0)
@@ -84,6 +95,8 @@ public class UserDeclaration implements UserInterface{
 
     @Override
     public List searchByName(String name) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         if (name == null) {
             List res = selectAllUsers();
             return res;
@@ -98,6 +111,8 @@ public class UserDeclaration implements UserInterface{
 
     @Override
     public List searchByCategory(String category) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         if (category == null) {
             List res = selectAllUsers();
             return res;
@@ -112,7 +127,8 @@ public class UserDeclaration implements UserInterface{
 
     @Override
     public User signIn(String username,String password) {
-
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
         try{
             tr = session.beginTransaction();
             Query query= session.createQuery("FROM User U WHERE U.username = :userName").setParameter("userName", username);
@@ -135,7 +151,36 @@ public class UserDeclaration implements UserInterface{
         return null;
     }
 
+    @Override
+    public long addSongToQueue(long id, Music m) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
+        User u = selectUser(id);
+        Collection<Music> queue = u.getMusicQueue();
+        queue.add(m);
+        tr = session.beginTransaction();
+        session.update(u);// Update the DB data having same id as st
+        tr.commit();
+        return 1;
+    }
+
+    @Override
+    public int emptyQueue(long id) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
+        User u = selectUser(id);
+        Collection<Music> queue = u.getMusicQueue();
+        queue.clear();
+        tr = session.beginTransaction();
+        session.update(u);// Update the DB data having same id as st
+        tr.commit();
+        return 1;
+    }
+
     public static void main(String[] args){
         System.out.println("This is working!!!");
+
+
+
     }
 }

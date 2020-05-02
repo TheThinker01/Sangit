@@ -29,6 +29,7 @@ public class MusicDeclaration implements MusicInterface {
         tr= session.beginTransaction();
         long l = (Long) session.save(m);
         tr.commit();
+        session.close();
         if(l>0)
         {
             return l;
@@ -66,17 +67,22 @@ public class MusicDeclaration implements MusicInterface {
             e.printStackTrace();
             return false;
         }
+        finally{
+            if(session.isOpen())
+                session.close();
+        }
     }
 
     @Override
     public Music selectMusic(long id) {
         sf = SessionFact.getSessionFact();
         session = sf.openSession();
-        Query query = session.createQuery("from User where id=:id");
+        Query query = session.createQuery("from Music where id=:id");
         query.setLong("id", id);
         List lis = query.list();
         ListIterator listIterator = lis.listIterator();
         Music res = (Music) listIterator.next();
+        session.close();
         return res;
     }
 
@@ -99,12 +105,14 @@ public class MusicDeclaration implements MusicInterface {
         session = sf.openSession();
         if (title == null) {
             List res = selectAllMusics();
+            session.close();
             return res;
         }
         else {
             Query query = session.createQuery("from Music where title like :searchfield");
             query.setString("searchfield", "%"+title+"%");
             List lis = query.list();
+            session.close();
             return lis;
         }
     }
