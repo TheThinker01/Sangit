@@ -1,6 +1,5 @@
 package DAO;
 
-import Bean.Music;
 import Bean.User;
 import HelpingClasses.BCrypt;
 import HelpingClasses.SessionFact;
@@ -9,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -149,32 +147,6 @@ public class UserDeclaration implements UserInterface{
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    public long addSongToQueue(long id, Music m) {
-        sf = SessionFact.getSessionFact();
-        session = sf.openSession();
-        User u = selectUser(id);
-        Collection<Music> queue = u.getMusicQueue();
-        queue.add(m);
-        tr = session.beginTransaction();
-        session.update(u);// Update the DB data having same id as st
-        tr.commit();
-        return 1;
-    }
-
-    @Override
-    public int emptyQueue(long id) {
-        sf = SessionFact.getSessionFact();
-        session = sf.openSession();
-        User u = selectUser(id);
-        Collection<Music> queue = u.getMusicQueue();
-        queue.clear();
-        tr = session.beginTransaction();
-        session.update(u);// Update the DB data having same id as st
-        tr.commit();
-        return 1;
     }
 
     public static void main(String[] args){

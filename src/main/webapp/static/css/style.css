@@ -182,19 +182,19 @@ body {
     display: block;
 }
 
-.wrapper.collapse .sidebar {
+.wrapper.collapsed .sidebar {
     width: 70px;
 }
 
-.wrapper.collapse .sidebar ul li a {
+.wrapper.collapsed .sidebar ul li a {
     text-align: center;
 }
 
-.wrapper.collapse .sidebar ul li a span.icon {
+.wrapper.collapsed .sidebar ul li a span.icon {
     margin: 0;
 }
 
-.wrapper.collapse .sidebar ul li a span.title {
+.wrapper.collapsed .sidebar ul li a span.title {
     display: none;
 }
 
@@ -318,9 +318,20 @@ body {
     line-height: 22px;
 }
 
-.wrapper.collapse .main_container {
+.wrapper.collapsed .main_container {
     width: calc(100% - 70px);
     margin-left: 70px;
+}
+
+.wrapper .container3{
+    display: flex;
+    align-items: center;
+}
+
+.wrapper .main_container .song-queue-table .song-queue-img{
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
 }
 
 .wrapper .footer {
@@ -415,7 +426,7 @@ body {
     cursor: pointer;
 }
 
-.wrapper.collapse .footer {
+.wrapper.collapsed .footer {
     width: calc(100% - 90px);
     margin-left: 70px;
 }

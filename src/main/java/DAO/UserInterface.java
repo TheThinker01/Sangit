@@ -1,6 +1,5 @@
 package DAO;
 
-import Bean.Music;
 import Bean.User;
 
 import java.util.List;
@@ -14,7 +13,5 @@ public interface UserInterface {
     List searchByName(String name);
     List searchByCategory(String category);
     User signIn(String username,String password);
-    long addSongToQueue(long id,Music m);
-    int emptyQueue(long id);
 
 }

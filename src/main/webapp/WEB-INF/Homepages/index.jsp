@@ -88,13 +88,13 @@
             <li>
                 <a href="#" class="playlists">
                     <span class="icon"><i class="fas fa-list-ul"></i></span>
-                    <span class="title">Playlists</span>
+                    <span class="title">My Playlists</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <span class="icon"><i class="fab fa-youtube"></i></span>
-                    <span class="title">Videos</span>
+                <a href="#" class="queue">
+                    <span class="icon"><i class="fas fa-folder-plus"></i></span>
+                    <span class="title">My Queue</span>
                 </a>
             </li>
             <li>
@@ -143,7 +143,35 @@
         </c:forEach>
     </div>
     <div class="main_container container2">
-        <h2>This Weeks Top 10 Songs:</h2>
+        <h2>This Weeks Top 10 Songs</h2>
+    </div>
+    <div class="main_container container3">
+
+        <div class="alert alert-warning song-queue-empty" role="alert">
+            <h4 class="alert-heading">
+                Oops :(
+            </h4>
+            <hr>
+            <p>
+                Your Queue is empty. Add a few songs and comeback :) .
+            </p>
+        </div>
+
+        <table class="table table-hover table-bordered song-queue-table">
+            <thead class="thead-dark" style="color: #fff; background-color: #444;border-radius: 15px;">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Song</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Artist</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
     <div class="footer">
         <span class="audio-buttons" id="prev"><i class="fas fa-backward fa-2x"></i></span>
@@ -168,7 +196,7 @@
 
     </div>
 
-    <div class="song-queue" style="display:none;">
+    <div class="song-queue" style="display: none;">
         <ul id="playlist">
             <%
                 List musiclist2 = mi.selectAllMusics();
@@ -182,15 +210,9 @@
                 <li songid ="${music2.getId()}" song="/music?path=${music2.getMediapath()}" cover="/img?path=${music2.getAlbumart()}" artist="${music2.getArtist()}" rating="${music2.getRating()}" style="display: none;"> ${music2.getTitle()}</li>
             </c:forEach>
 
-<%--            <li song="Halsey - Bad At Love.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="2" style="display: none;">Bad At Love</li>--%>
-<%--            <li song="Halsey - You should be sad.mp3" cover="img/sddefault.jpg" artist="Halsey" rating="4" style="display: none;">You should be sad</li>--%>
-<%--            <li song="Kina - get you the moon (ft. Snow).mp3" cover="img/kina.jpg" artist="Kina" rating="3" style="display: none;">Get you the moon</li>--%>
-<%--            <li song="Halsey - Bad At Love.mp3" cover="img/index.jpg" artist="Powfu" rating="5" style="display: none;">Deathbed</li>--%>
-<%--            <li song="I Just Wanna Shine.mp3" cover="img/sddefault4.jpg" artist="Fitz" rating="5" style="display: none;">I just wanna shine</li>--%>
-
-
         </ul>
     </div>
+
 </div>
 
     <script>
@@ -208,7 +230,7 @@
             // shuffleArray(queue);
             console.log(queue);
 
-            // Auto Play Next index
+            /////// Auto Play Next index
             var index = 1; // First Element will be played by default
 
             var audio;
@@ -219,14 +241,15 @@
             $('.music-item-hover').hide();
             $('.music-item-hover .pause').hide();
             $('.container2').hide();
+            $('.container3').hide();
             var repeat = 0;
 
-            // $('music-item-hover').hide();
+
 
             ////////// On Dropdowns and Popups and glowups
 
             $(".hamburger").click(function() {
-                $(".wrapper").toggleClass("collapse");
+                $(".wrapper").toggleClass("collapsed");
             });
 
 
@@ -239,18 +262,27 @@
             });
 
             $('.sidebar .listen').click(function () {
-                $('.container2').hide();
+                $('.main_container').hide();
                 $('.container1').show();
                 $('.sidebar a').removeClass("active");
                 $(this).addClass("active");
             });
 
             $('.sidebar .playlists').click(function () {
+                $('.main_container').hide();
                 $('.container2').show();
-                $('.container1').hide();
                 $('.sidebar a').removeClass("active");
                 $(this).addClass("active");
             });
+
+            $('.sidebar .queue').click(function () {
+                $('.main_container').hide();
+                $('.container3').show();
+                $('.sidebar a').removeClass("active");
+                $(this).addClass("active");
+                displayQueue();
+            });
+
 
             ////// Music Items Overlay Functions
 
@@ -579,6 +611,7 @@
                 $('#play').hide();
                 $('#pause').show();
                 showDuration();
+                displayQueue();
             });
 
 
@@ -728,6 +761,44 @@
                     }
                 });
             });
+
+        //// Display Queue Function
+
+        function displayQueue(){
+            if(queue.length==0)
+            {
+                $('.song-queue-empty').show();
+                $('.song-queue-table').hide();
+
+            }
+            else{
+                $('.song-queue-empty').hide();
+                $('.song-queue-table').show();
+                $('.song-queue-table tbody').html(" ");
+                for(var i=0;i<queue.length;i++)
+                {
+                    var qvar = jQuery(queue[i]);
+                    var rno = parseInt(qvar.attr("rating"));
+                    var rating = '';
+                    for(var j=0;j<rno;j++)
+                    {
+                        rating = rating+'<i class="fas fa-star fa-xs"></i>';
+                    }
+                    for(var j=rno;j<=5;j++)
+                        rating = rating + '<i class="far fa-star fa-xs"></i>';
+                    $('.song-queue-table tbody').append('<tr>' +
+                        '<th scope="row">'+String(i+1)+'</th>'+
+                        '<td><img class="song-queue-img" src="'+qvar.attr("cover") +'"></td>'+
+                        '<td>'+ qvar.text() +'</td>'+
+                        '<td>'+ qvar.attr("artist") +'</td>'+
+                        '<td>'+ rating +'</td>'+
+                        '<td>'+ '<button class="btn btn-danger">DELETE</button>' +'</td>'+
+
+                        '</tr>');
+                }
+            }
+        }
+
 
         });
     </script>

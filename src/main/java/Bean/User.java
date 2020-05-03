@@ -1,8 +1,6 @@
 package Bean;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,10 +15,7 @@ public class User {
     private String email,mobile_num,username;
     private String photopath;
 
-    @OneToMany
-    private Collection<Music> musicQueue = new ArrayList<Music>();
-
-    @OneToMany()
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Playlist> playlists = new HashSet<Playlist>();
 
     public User() {
@@ -45,13 +40,6 @@ public class User {
         this.playlists = playlists;
     }
 
-    public Collection<Music> getMusicQueue() {
-        return musicQueue;
-    }
-
-    public void setMusicQueue(Collection<Music> musicQueue) {
-        this.musicQueue = musicQueue;
-    }
 
     public String getphotopath() {
         return photopath;
