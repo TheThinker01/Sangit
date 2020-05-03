@@ -20,6 +20,7 @@ public class LoginRequiredFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
 //        System.out.println(request.getRequestURI());
         String next =request.getRequestURI();
+        System.out.println("next : "+next);
         if(request.getSession().getAttribute("loggedIn")!=null)
         {
             filterChain.doFilter(servletRequest,servletResponse);
@@ -31,7 +32,7 @@ public class LoginRequiredFilter implements Filter {
             request.setAttribute("error",error);
             request.setAttribute("next",next);
 
-            request.getRequestDispatcher("WEB-INF/User/login.jsp").forward(servletRequest,servletResponse);
+            request.getRequestDispatcher("/WEB-INF/User/login.jsp").forward(servletRequest,servletResponse);
 
         }
     }

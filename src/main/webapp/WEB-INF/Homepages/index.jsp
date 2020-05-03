@@ -81,12 +81,12 @@
     <div class="sidebar">
         <ul>
             <li>
-                <a href="#" class="active">
+                <a href="#" class="active listen">
                     <span class="icon"><i class="fas fa-music"></i></span>
                     <span class="title">Listen</span></a>
             </li>
             <li>
-                <a href="#">
+                <a href="#" class="playlists">
                     <span class="icon"><i class="fas fa-list-ul"></i></span>
                     <span class="title">Playlists</span>
                 </a>
@@ -217,8 +217,8 @@
             $('.account-dropdown').hide();
             $('.search').hide();
             $('.music-item-hover').hide();
-            // $('.music-item-hover .pause').hide();
-            $('.container1').hide();
+            $('.music-item-hover .pause').hide();
+            $('.container2').hide();
             var repeat = 0;
 
             // $('music-item-hover').hide();
@@ -236,8 +236,21 @@
 
             $('.li-search').click(function() {
                 $('.search').toggle();
-            })
+            });
 
+            $('.sidebar .listen').click(function () {
+                $('.container2').hide();
+                $('.container1').show();
+                $('.sidebar a').removeClass("active");
+                $(this).addClass("active");
+            });
+
+            $('.sidebar .playlists').click(function () {
+                $('.container2').show();
+                $('.container1').hide();
+                $('.sidebar a').removeClass("active");
+                $(this).addClass("active");
+            });
 
             ////// Music Items Overlay Functions
 
@@ -327,7 +340,52 @@
                 $('#pause').hide();
             });
 
+            // Clicking on the add review button
+            $('.music-item-hover .rate').click(function() {
+                var music_id=$(this).parents().eq(2).find('li').attr('songid');
+                $.confirm({
+                    title: 'Rate this song!',
+                    content: ''+
+                        '<form action="/addRating" class="formName" method="post">' +
+                        '<div class="form-group">'+
+                        '<input type="hidden" name="musicid" value="'+music_id+'">'+
+                        '<h5>Enter Rating(0-5)</h5>'+
+                        '<label class="radio-inline m-1"><input type="radio" class="name" name="rating" value="0" >0</label>'+
+                        '<label class="radio-inline m-1"><input type="radio" class="name" name="rating" value="1" >1</label>'+
+                        '<label class="radio-inline m-1"><input type="radio" class="name"  name="rating" value="2" >2</label>'+
+                        '<label class="radio-inline m-1"><input type="radio" class="name"  name="rating" value="3" >3</label>'+
+                        '<label class="radio-inline m-1"><input type="radio" class="name"  name="rating" value="4" >4</label>'+
+                        '<label class="radio-inline m-1"><input type="radio" class="name"  name="rating" value="5" checked>5</label>'+
+                        '</div>' +
+                        '</form>',
+                    buttons: {
+                        formSubmit: {
+                            text: 'Submit',
+                            btnClass: 'btn-blue',
+                            action: function () {
+                                var name = this.$content.find('.name').val();
+                                console.log(name);
+                                $.alert('Song Rated');
+                                this.$content.find('form').submit();
+                                }
 
+                        },
+                        cancel: function () {
+                            //close
+                        },
+                    },
+                    onContentReady: function () {
+                        // bind to events
+                        var jc = this;
+                        this.$content.find('form').on('submit', function (e) {
+                            // if the user submits the form by pressing enter in the field.
+
+                            // reference the button and click it
+                        });
+                    }
+                });
+
+            });
 
             // Submit Songs Search on Enter
             $('.li-search').keyup(function(e) {
@@ -603,7 +661,7 @@
                                     {
                                         %>
 
-                                        '<h3>You have no Playlist. <a href="/addPlaylist">Click here</a> to Create One</h3>'+
+                                        '<h3>You have no Playlist. <a href="/user/addPlaylist">Click here</a> to Create One</h3>'+
                                     <%
                                     }
                                 else
@@ -622,9 +680,12 @@
                                         %>
 
                                         '<input class="name" type="checkbox" name="playlist" value="${p.getId()}" />'+
-                                        '<label for="playlist">${p.name}</label><br>'+
+                                        '<label for="playlist" class="m-1">${p.name}</label><br>'+
                                         <%
                                             }
+                                        %>
+                                        '<h5 class="m-2"><a href="/user/addPlaylist">Add</a> another playlist</h5>'+
+                                        <%
                                      }
                         }
                         else{
@@ -647,7 +708,7 @@
                                     return false;
                                 }
                                 else{
-
+                                    $.alert('Song added to playlist: '+name);
                                     this.$content.find('form').submit();
                                 }
                             }
