@@ -221,7 +221,7 @@
 
 
             ////////// Initial Settings
-
+            var audio;
             initAudio($('#playlist li:first-child'));
 
             // Managing the song queue
@@ -233,7 +233,7 @@
             /////// Auto Play Next index
             var index = 1; // First Element will be played by default
 
-            var audio;
+
             $('#pause').hide();
             $('#mute').hide();
             $('.account-dropdown').hide();
@@ -332,6 +332,8 @@
 
             });
 
+
+
             // Pressing the play button
             $('.music-item-hover .play').click(function() {
                 // First make all pause buttons disappear and play buttons appear
@@ -426,25 +428,6 @@
             })
 
 
-            // Auto continue next song
-            $(audio).bind('ended', function() {
-                var e = jQuery(queue[index]);
-                if (index != (queue.length - 1)) {
-                    index += 1;
-                    initAudio(e);
-                    audio.play();
-                    $('#play').hide();
-                    $('#pause').show();
-                    showDuration();
-                } else if (repeat == 1) {
-                    index = 0;
-                    initAudio(e);
-                    audio.play();
-                    $('#play').hide();
-                    $('#pause').show();
-                    showDuration();
-                }
-            });
 
 
 
@@ -493,6 +476,15 @@
                 // console.log(title);
             });
 
+            // Delete Button On Queue
+            $('table').on("click","#song-queue-delbtn",function () {
+                console.log("Clicked");
+                var m = parseInt($(this).parent().find('.song-queue-id'));
+                queue.splice(m-1,1);
+                displayQueue();
+                UpdateDomQueue();
+            });
+
             // Audio Jqueries
             var song_id;
             function initAudio(element) {
@@ -519,6 +511,28 @@
                 element.addClass('active');
 
             }
+
+
+            // Auto continue next song
+            $(audio).bind('ended', function() {
+                var e = jQuery(queue[index]);
+                if (index != (queue.length - 1)) {
+                    index += 1;
+                    initAudio(e);
+                    audio.play();
+                    $('#play').hide();
+                    $('#pause').show();
+                    showDuration();
+                } else if (repeat == 1) {
+                    index = 0;
+                    initAudio(e);
+                    audio.play();
+                    $('#play').hide();
+                    $('#pause').show();
+                    showDuration();
+                }
+            });
+
 
 
             // Play Button
@@ -787,17 +801,22 @@
                     for(var j=rno;j<=5;j++)
                         rating = rating + '<i class="far fa-star fa-xs"></i>';
                     $('.song-queue-table tbody').append('<tr>' +
-                        '<th scope="row">'+String(i+1)+'</th>'+
+                        '<th scope="row" class="song-queue-id">'+String(i+1)+'</th>'+
                         '<td><img class="song-queue-img" src="'+qvar.attr("cover") +'"></td>'+
                         '<td>'+ qvar.text() +'</td>'+
                         '<td>'+ qvar.attr("artist") +'</td>'+
                         '<td>'+ rating +'</td>'+
-                        '<td>'+ '<button class="btn btn-danger">DELETE</button>' +'</td>'+
+                        '<td id="song-queue-delbtn">'+ '<button class="btn btn-danger" onclick="console.log(\"Clicked\");' +
+                        '                var m = parseInt($(this).parent().find(\'.song-queue-id\'));' +
+                        '                queue.splice(m-1,1);' +
+                        '                displayQueue();' +
+                        '                UpdateDomQueue();" >DELETE</button>' +'</td>'+
 
                         '</tr>');
                 }
             }
         }
+
 
 
         });
