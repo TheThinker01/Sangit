@@ -51,7 +51,7 @@
 <%--                  </form>--%>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="/register">Create an Account!</a>
+                    <a class="small" href="/addUser">Create an Account!</a>
                   </div>
                   <div class="text-center">
                     <a class="small" href="/login">Already have an account? Login!</a>

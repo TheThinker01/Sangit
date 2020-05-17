@@ -94,9 +94,9 @@
                                                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                                                     </div>
                                                 </div>
-                                                <a href="index.html" class="btn btn-primary btn-user btn-block">
+                                                <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Login
-                                    </a>
+                                    </button>
                                                 <hr>
                                                 <%--                                    <a href="index.html" class="btn btn-google btn-user btn-block">--%>
                                                     <%--                                        <i class="fab fa-google fa-fw"></i> Login with Google--%>
@@ -110,7 +110,7 @@
                                                 <a class="small" href="/forgotPassword">Forgot Password?</a>
                                             </div>
                                             <div class="text-center">
-                                                <a class="small" href="/register">Create an Account!</a>
+                                                <a class="small" href="/addUser">Create an Account!</a>
                                             </div>
                                         </div>
                                     </div>
