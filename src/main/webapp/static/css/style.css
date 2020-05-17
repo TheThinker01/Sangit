@@ -128,7 +128,10 @@ body {
     font-weight: 300;
     padding: 0 25px;
 }
-
+.wrapper .top_navbar .top_menu ul li .account-dropdown li:hover{
+    font-weight: 400;
+    cursor: pointer;
+}
 .wrapper .sidebar {
     position: fixed;
     top: 70px;

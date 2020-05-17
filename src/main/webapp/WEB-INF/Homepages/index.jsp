@@ -30,7 +30,8 @@
     <link rel="stylesheet" href="static/css/jquery-confirm.min.css">
     <link rel="stylesheet" href="static/css/animate.css">
     <link rel="stylesheet" href="static/css/style.css">
-    <script src="https://kit.fontawesome.com/194687f623.js" crossorigin="anonymous"></script>
+<%--    <script src="https://kit.fontawesome.com/194687f623.js" crossorigin="anonymous"></script>--%>
+    <link href="static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <script src="static/js/jquery-confirm.min.js"></script>
 
 <%--    <script src="static/js/main.js"></script>--%>
@@ -67,11 +68,18 @@
                 <li class="li-account">
                     <a href="#"><i class="fas fa-user"></i></a>
                     <ul class="account-dropdown">
-                        <li><span><a style="all: unset" href="#">Playlists</a></span></li>
-                        <li><a style="all: unset" href="#">Song Queue</a></li>
+                        <%if(u!=null)
+                        {%>
+                        <li><span><a style="all: unset" class="playlists">Playlists</a></span></li>
+                        <li><a style="all: unset" class="queue" >Song Queue</a></li>
                         <li><a style="all: unset" href="/updateProfile">Profile</a></li>
                         <div class="marker"></div>
                         <li><a style="all: unset" href="/logout">Logout</a></li>
+                        <%}
+                        else{
+                        %>
+                        <li><a style="all: unset" href="/login">Login</a></li>
+                        <% } %>
                     </ul>
                 </li>
             </ul>
@@ -81,32 +89,25 @@
     <div class="sidebar">
         <ul>
             <li>
-                <a href="#" class="active listen">
-                    <span class="icon"><i class="fas fa-music"></i></span>
-                    <span class="title">Listen</span></a>
+                <a  class="active listen"><span class="icon"><i class="fas fa-music"></i></span><span class="title">Listen</span></a>
             </li>
             <li>
-                <a href="#" class="playlists">
-                    <span class="icon"><i class="fas fa-list-ul"></i></span>
-                    <span class="title">My Playlists</span>
+                <a  class="playlists">
+                    <span class="icon"><i class="fas fa-list-ul"></i></span><span class="title">My Playlists</span></a>
+            </li>
+            <li>
+                <a  class="queue">
+                    <span class="icon"><i class="fas fa-folder-plus"></i></span><span class="title">My Queue</span>
                 </a>
             </li>
             <li>
-                <a href="#" class="queue">
-                    <span class="icon"><i class="fas fa-folder-plus"></i></span>
-                    <span class="title">My Queue</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="icon"><i class="fas fa-blog"></i></span>
-                    <span class="title">My Account</span>
+                <a href="/updateProfile">
+                    <span class="icon"><i class="fas fa-blog"></i></span><span class="title">My Account</span>
                 </a>
             </li>
             <li class="admin-li">
-                <a href="#">
-                    <span class="icon"><i class="fas fa-shield-alt"></i></span>
-                    <span class="title">Admin</span>
+                <a href="/admin">
+                    <span class="icon"><i class="fas fa-shield-alt"></i></span><span class="title">Admin</span>
                 </a>
             </li>
         </ul>
@@ -268,14 +269,14 @@
                 $(this).addClass("active");
             });
 
-            $('.sidebar .playlists').click(function () {
+            $('.playlists').click(function () {
                 $('.main_container').hide();
                 $('.container2').show();
                 $('.sidebar a').removeClass("active");
                 $(this).addClass("active");
             });
 
-            $('.sidebar .queue').click(function () {
+            $('.queue').click(function () {
                 $('.main_container').hide();
                 $('.container3').show();
                 $('.sidebar a').removeClass("active");
