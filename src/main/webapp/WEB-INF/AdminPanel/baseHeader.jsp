@@ -79,8 +79,8 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Playlist Actions:</h6>
-                    <a class="collapse-item" href="/user/ShowAllPlaylists">Show All Playlists</a>
-                    <a class="collapse-item" href="/user/addPlaylist">Add Playlist</a>
+                    <a class="collapse-item" href="user/ShowAllPlaylists">Show All Playlists</a>
+                    <a class="collapse-item" href="user/addPlaylist">Add Playlist</a>
                 </div>
             </div>
         </li>
@@ -102,8 +102,8 @@
             <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
 <%--                    <h6 class="collapse-header">Login Screens:</h6>--%>
-                    <a class="collapse-item" href="/addMusic">Add Track</a>
-                    <a class="collapse-item" href="/admin/showAllMusic">Show All Tracks</a>
+                    <a class="collapse-item" href="addMusic">Add Track</a>
+                    <a class="collapse-item" href="showAllMusic">Show All Tracks</a>
                     <div class="collapse-divider"></div>
                 </div>
             </div>
