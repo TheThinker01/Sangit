@@ -23,11 +23,21 @@ public class AddSongToPlaylist extends HttpServlet {
         long music_id = Long.parseLong(req.getParameter("musicid"));
         long playlist_id = Long.parseLong(req.getParameter("playlist"));
         PlaylistInterface pi = new PlaylistDeclaration();
+        // Select the playlist to be inserted to
         Playlist p = pi.selectPlaylist(playlist_id);
         MusicInterface mi = new MusicDeclaration();
+        // Select the music file to be inserted
         Music m =mi.selectMusic(music_id);
+        // Many To Many Mapping
+        // So First Add Song to Playlist
         p.getSongList().add(m);
+        // And add playlist to song
+        m.addToPlaylists(p);
+
+        // Finally update playlist
         pi.updatePlaylist(playlist_id,p);
+        // Update Music
+        mi.updateMusic(music_id,m);
         resp.sendRedirect("/");
     }
 }

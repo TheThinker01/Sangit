@@ -29,7 +29,7 @@
             <h4 class="alert-heading">${heading}</h4>
             <p>${message}</p>
             <hr>
-            <p class="mb-0"><button class="btn btn-primary">HOME</button></p>
+            <p class="mb-0"><a href="/"><button class="btn btn-primary">HOME</button></a></p>
         </div>
     </div>
 

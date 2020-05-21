@@ -40,6 +40,7 @@ public class User {
         this.playlists = playlists;
     }
 
+    public void addPlaylist(Playlist p){this.playlists.add(p);}
 
     public String getphotopath() {
         return photopath;

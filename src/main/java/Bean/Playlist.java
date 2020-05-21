@@ -14,7 +14,7 @@ public class Playlist {
     @ManyToOne
     private User user;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Music> songList = new HashSet<Music>();
 
     public Playlist() {
@@ -24,6 +24,8 @@ public class Playlist {
         this.name = name;
         this.visibilty = visibilty;
     }
+
+
 
     public long getId() {
         return id;
@@ -63,5 +65,13 @@ public class Playlist {
 
     public void setSongList(Set<Music> songList) {
         this.songList = songList;
+    }
+
+    public void addSong(Music m){
+        this.songList.add(m);
+    }
+
+    public void removeSong(Music m){
+        this.songList.remove(m);
     }
 }

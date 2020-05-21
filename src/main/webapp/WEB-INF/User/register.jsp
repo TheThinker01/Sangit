@@ -101,9 +101,9 @@
                                 <label style="margin-left: 10px">Select Image</label>
                                 <input type="file" class="form-control form-control-user" name="photo" id="photo" placeholder="Choose Image" required/>
                             </div>
-                            <a href="/addUser" class="btn btn-primary btn-user btn-block register-button">
+                            <button class="btn btn-primary btn-user btn-block register-button">
                                 Register Account
-                            </a>
+                            </button>
                             <hr>
                             <!--                <a href="index.html" class="btn btn-google btn-user btn-block">-->
                             <!--                  <i class="fab fa-google fa-fw"></i> Register with Google-->

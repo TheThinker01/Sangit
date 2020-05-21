@@ -29,6 +29,7 @@ public class PlaylistDeclaration implements PlaylistInterface {
         tr = session.beginTransaction();
         long l = (Long) session.save(p);
         tr.commit();
+        session.close();
         if(l>0)
         {
             return l;
@@ -46,6 +47,7 @@ public class PlaylistDeclaration implements PlaylistInterface {
         tr = session.beginTransaction();
         session.update(p);// Update the DB data having same id as st
         tr.commit();// Commit the transaction
+        session.close();
         return 1;
     }
 

@@ -76,7 +76,7 @@ public class CreateMusic extends HttpServlet {
                     part.write(uploadPath + File.separator + fileName);
                     System.out.println(uploadPath + File.separator + fileName);
                 }
-                if(fileExtension.equals("jpg") || fileExtension.equals("png")||fileExtension.equals("jpeg")) {
+                if(fileExtension.toLowerCase().equals("jpg") || fileExtension.toLowerCase().equals("png")||fileExtension.toLowerCase().equals("jpeg")) {
                     System.out.println("Image file detected");
                     albumart = uploadPath+ File.separator + "img" + File.separator + fileName;
                     part.write(uploadPath+ File.separator + "img" + File.separator + fileName);

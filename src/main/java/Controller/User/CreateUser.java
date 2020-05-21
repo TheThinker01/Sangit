@@ -63,6 +63,7 @@ public class CreateUser extends HttpServlet {
 
         UserInterface ui = new UserDeclaration();
         ui.userInsert(new User(name,  password,  email,  mobile_num, category, photopath , username));
+        resp.sendRedirect("/");
 
     }
     private String extractFileName(Part part) {

@@ -47,6 +47,22 @@ public class ShowAllMusic extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        MusicInterface mi = new MusicDeclaration();
+        String name = req.getParameter("search");
+        List res = mi.searchByTitle(name);
+        ListIterator it;
+        String message;
+        if(!res.isEmpty())
+        {   it = res.listIterator();
+            req.setAttribute("it",it);
+            message = "The matching results are";
+        }
+        else
+        {
+            message="No matching records found";
+        }
+        req.setAttribute("message",message);
 
+        req.getRequestDispatcher("/WEB-INF/MusicPages/ShowAllTracks.jsp").forward(req,resp);
     }
 }

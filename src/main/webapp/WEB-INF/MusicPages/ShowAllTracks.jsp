@@ -10,7 +10,7 @@
 <head>
     <title>Show all Music Tracks</title>
     <%@include file="../common/commonlinks.jsp"%>
-    <script src="https://kit.fontawesome.com/194687f623.js" crossorigin="anonymous"></script>
+<%--    <script src="https://kit.fontawesome.com/194687f623.js" crossorigin="anonymous"></script>--%>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,500,900&display=swap');
         @import url('https://fonts.googleapis.com/css?family=Gotu&display=swap&subset=devanagari');
@@ -152,7 +152,6 @@
     </style>
 </head>
 <body>
-<body>
 <div class="wrapper">
     <div class="top_navbar">
         <div class="hamburger">
@@ -164,9 +163,9 @@
         <div class="top_menu">
             <div class="logo">संगीत</div>
             <div class="search">
-                <form action="/admin/ShowAllMusic" method="post" id="search-form">
+                <form action="/showAllMusic" method="post" id="search-form">
                     <span><i class="fas fa-search fa-xs"></i></span>
-                    <input type="text" id="search-box" placeholder="Search by name" name="search"/>
+                    <input type="text" id="search-box" placeholder="Search by Title" name="search"/>
                     <span class="input-group-append">
                         <button class="btn btn-info" type="submit">Go</button>
                     </span>
@@ -212,7 +211,7 @@
                     <th scope="row">${st.getId()}</th>
                     <td>${st.getTitle()}</td>
                     <td>${st.getArtist()}</td>
-                    <td><a href="/img?path=${st.getAlbumart()}"><img src="/img?path=${st.getAlbumart()}" alt="Your Profile Photo" height="75px" width="75px" class="img-thumbnail"></a></td>
+                    <td><a href="/img?path=${st.getAlbumart()}"><img src="/img?path=${st.getAlbumart()}" alt="Album Art" height="75px" width="75px" class="img-thumbnail"></a></td>
                             <td><a href="/music?path=${st.getMediapath()}">Click Here for Song</a></td>
                     <td ><a class="delete" href="/admin/DeleteMusic?id=${st.getId()}">Delete</a></td>
                 </tr>

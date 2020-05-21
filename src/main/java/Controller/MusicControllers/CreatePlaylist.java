@@ -4,6 +4,8 @@ import Bean.Playlist;
 import Bean.User;
 import DAO.PlaylistDeclaration;
 import DAO.PlaylistInterface;
+import DAO.UserDeclaration;
+import DAO.UserInterface;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,9 +27,20 @@ public class CreatePlaylist extends HttpServlet {
         String visibility = req.getParameter("visibility");
         User adder = (User)req.getSession().getAttribute("loggedIn");
         Playlist p = new Playlist(name,visibility);
+        // Many To One Mapping - bidirectional
+        // Set user in playlist
         p.setUser(adder);
+
+        //Save the playlist
         PlaylistInterface pi = new PlaylistDeclaration();
         pi.playlistInsert(p);
+
+        // Add playlist in user's list
+        adder.addPlaylist(p);
+        // Now update the user
+        UserInterface ui = new UserDeclaration();
+        ui.updateUser(adder.getId(),adder);
+
         resp.sendRedirect("/");
     }
 }

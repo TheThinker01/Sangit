@@ -1,9 +1,9 @@
 package Bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Music {
@@ -15,6 +15,10 @@ public class Music {
     String title, artist, albumart, song, mediapath;
     long rating,ratingCount;
     long duration;
+
+    @ManyToMany(mappedBy = "songList",fetch = FetchType.EAGER)
+    private Set<Playlist> playlists = new HashSet<Playlist>();
+
 
     public Music() {
     }
@@ -29,6 +33,18 @@ public class Music {
         this.mediapath = mediapath;
         this.duration = duration;
     }
+
+    public Set<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(Set<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
+    public void addToPlaylists(Playlist p){this.playlists.add(p);}
+
+    public void removeFromPlaylists(Playlist p){this.playlists.remove(p);}
 
     public long getRating() {
         return rating;

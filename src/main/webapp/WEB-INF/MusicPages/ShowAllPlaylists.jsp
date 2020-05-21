@@ -1,16 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: archi
-  Date: 25-04-2020
-  Time: 14:34
+  Date: 21-05-2020
+  Time: 23:25
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Your Profile</title>
+    <title>Show all Music Tracks</title>
     <%@include file="../common/commonlinks.jsp"%>
-    <link href="static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,500,900&display=swap');
         @import url('https://fonts.googleapis.com/css?family=Gotu&display=swap&subset=devanagari');
@@ -32,7 +32,9 @@
             margin-top: 60px;
         }
         .main_container{
-            padding:50px 50px;
+            padding:50px 20px;
+            margin-left: 50px;
+            margin-right: 50px;
         }
         label{
             font-size: 18px;
@@ -92,6 +94,22 @@
         }
 
 
+        .wrapper .top_navbar .top_menu .search {
+            color: #999;
+            border: 1.5px solid #92a6e2;
+            padding: 5px 5px;
+            border-radius: 10px;
+            transition: all 0.3 ease-in;
+        }
+
+        .wrapper .top_navbar .top_menu #search-box {
+            margin-left: 5px;
+            border: none;
+            color: #999;
+            font-weight: 300;
+        }
+
+
         .wrapper .top_navbar .top_menu ul {
             margin-top: 10px;
             display: flex;
@@ -115,7 +133,22 @@
             background: #4360b5;
             color: #fff;
         }
-
+        .update,.delete{
+            border-radius:10px ;
+            padding: 5px;
+        }
+        .update{
+            border: thin solid green;
+        }
+        .delete{
+            border: thin solid red;
+        }
+        .infotext{
+            padding: 10px;
+            padding-left: 20px;
+            border-top-left-radius: 10px;
+            border: 2px solid #1696ff;
+        }
     </style>
 </head>
 <body>
@@ -129,7 +162,15 @@
         </div>
         <div class="top_menu">
             <div class="logo">संगीत</div>
-
+            <div class="search">
+                <form action="/showAllMusic" method="post" id="search-form">
+                    <span><i class="fas fa-search fa-xs"></i></span>
+                    <input type="text" id="search-box" placeholder="Search by Title" name="search"/>
+                    <span class="input-group-append">
+                        <button class="btn btn-info" type="submit">Go</button>
+                    </span>
+                </form>
+            </div>
             <ul>
                 <li class="li-account">
                     <a href="/"><i class="fas fa-home"></i></a>
@@ -138,45 +179,46 @@
         </div>
     </div>
     <div class="container main_container">
-    <form method="post" action="/updateProfile?id=${st.getId()}" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-lg-6">
-        <fieldset class="form-group">
-            <label>Name</label>
-            <input type="text" name="name" value="${st.getName()}" class="form-control" required/>
-        </fieldset>
-        <fieldset class="form-group">
-            <label>Category</label>
-            <input type="text" name="category" value="${st.getCategory()}" class="form-control" required/>
-        </fieldset>
-        <fieldset class="form-group">
-            <label>Email</label>
-            <input type="text" name="email" value="${st.getEmail()}" class="form-control" required/>
-        </fieldset>
-        <fieldset class="form-group">
-            <label>Mobile No.</label>
-            <input type="text" name="mobile_num" value="${st.getMobile_num()}" class="form-control" required/>
-        </fieldset>
-        <fieldset class="form-group">
-            <label>Username</label>
-            <input type="text" name="username" value="${st.getUsername()}" class="form-control" required/>
-        </fieldset>
-        <fieldset class="form-group">
-            <label>Password</label>
-            <input class="form-control" type="password" placeholder="Re enter your password"   name="password" required/>
-        </fieldset>
-            </div>
-            <div class="col-lg-6">
-        <fieldset class="form-group">
-            <label>Image</label><br/>
-            <img src="/img?path=${st.getphotopath()}" class="img-thumbnail"  alt="Your Profile Photo">
-            <input type="file" name="photo" value="${st.getphotopath()}" class="form-control" />
-        </fieldset>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-success">Update Details</button>
-    </form>
-</div>
+        <div class="alert-primary mb0 infotext"> <h3>${message}</h3> </div>
+        <table class="table table-hover ">
+            <thead class="thead">
+            <tr>
+
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Visibility</th>
+                <th scope="col">UserID</th>
+                <%--            <th scope="col">--%>
+                <%--                <form method="post" action="/admin/ShowAllUsers">--%>
+                <%--                    <div class="input-group">--%>
+                <%--                        <input type="text" class="form-control" placeholder="Search By Name" name="search" style="width: 75px;">--%>
+                <%--                        <div class="input-group-append">--%>
+                <%--                            <button class="btn btn-success" type="submit">Go</button>--%>
+                <%--                        </div>--%>
+                <%--                    </div>--%>
+                <%--                </form>--%>
+                <%--            </th>--%>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <c:forEach items="${it}" var="st">
+                <tr>
+                        <%--            name, String password, String email, String mobile_num,String category,String photopath ,String username--%>
+                    <th scope="row">${st.getId()}</th>
+                    <td>${st.getName()}</td>
+                    <td>${st.getVisibilty()}</td>
+                    <td>${st.getUser().getId()}</td>
+                    <td ><a class="delete" href="/user/DeletePlaylist?id=${st.getId()}">Delete</a></td>
+                </tr>
+            </c:forEach>
+
+            <tr></tr>
+
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>
