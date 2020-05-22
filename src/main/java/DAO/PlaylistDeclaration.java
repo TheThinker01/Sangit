@@ -45,7 +45,7 @@ public class PlaylistDeclaration implements PlaylistInterface {
         session = sf.openSession();
         p.setId(id);// Set the id
         tr = session.beginTransaction();
-        session.update(p);// Update the DB data having same id as st
+        session.merge(p);// Update the DB data having same id as st
         tr.commit();// Commit the transaction
         session.close();
         return 1;

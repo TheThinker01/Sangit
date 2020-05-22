@@ -45,7 +45,7 @@ public class MusicDeclaration implements MusicInterface {
         session = sf.openSession();
         m.setId(id);// Set the id
         tr = session.beginTransaction();
-        session.update(m);// Update the DB data having same id as st
+        session.merge(m);// Update the DB data having same id as st
         tr.commit();// Commit the transaction
         return 1;// Have to do some validation here , regarding username etc .
     }

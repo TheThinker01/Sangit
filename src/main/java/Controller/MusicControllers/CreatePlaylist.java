@@ -24,6 +24,7 @@ public class CreatePlaylist extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
+        name = name.replaceAll("[^a-zA-Z0-9]", "");// Remove special characters
         String visibility = req.getParameter("visibility");
         User adder = (User)req.getSession().getAttribute("loggedIn");
         Playlist p = new Playlist(name,visibility);
@@ -39,7 +40,7 @@ public class CreatePlaylist extends HttpServlet {
         adder.addPlaylist(p);
         // Now update the user
         UserInterface ui = new UserDeclaration();
-        ui.updateUser(adder.getId(),adder);
+        ui.updateUserWithPlaylist(adder.getId(),adder);
 
         resp.sendRedirect("/");
     }

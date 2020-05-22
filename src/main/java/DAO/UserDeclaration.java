@@ -45,7 +45,35 @@ public class UserDeclaration implements UserInterface{
         tr = session.beginTransaction();
         session.update(u);// Update the DB data having same id as st
         tr.commit();// Commit the transaction
+        session.close();
         return 1;// Have to do some validation here , regarding username etc .
+    }
+
+    @Override
+    public long updateUserWithPlaylist(long id, User u) {
+        sf = SessionFact.getSessionFact();
+        try {
+            session = sf.getCurrentSession();
+        }
+        catch(Exception e)
+        {
+            session = sf.openSession();
+        }
+        u.setId(id);
+        tr = session.beginTransaction();
+        try {
+            session.merge(u);// Update the DB data having same id as st
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            session.update(u);
+        }
+        finally {
+            tr.commit();// Commit the transaction
+            session.close();
+        }
+
+        return 1;
     }
 
     @Override

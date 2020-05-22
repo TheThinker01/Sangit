@@ -15,7 +15,7 @@ public class User {
     private String email,mobile_num,username;
     private String photopath;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Playlist> playlists = new HashSet<Playlist>();
 
     public User() {
@@ -41,6 +41,7 @@ public class User {
     }
 
     public void addPlaylist(Playlist p){this.playlists.add(p);}
+    public void removePlaylist(Playlist p){this.playlists.remove(p);}
 
     public String getphotopath() {
         return photopath;
