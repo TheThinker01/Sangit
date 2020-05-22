@@ -33,7 +33,7 @@
 <%--    <script src="https://kit.fontawesome.com/194687f623.js" crossorigin="anonymous"></script>--%>
     <link href="/static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <script src="/static/js/jquery-confirm.min.js"></script>
-
+    <link rel=icon href="/static/img/favicon-32x32.png">
 <%--    <script src="static/js/main.js"></script>--%>
 </head>
 
@@ -48,7 +48,7 @@
             <!-- <div></div>
             <div></div>
             <div></div> -->
-            <i class="fas fa-headphones-alt fa-2x icon"></i>
+            <img height="40px" width="40px" src="/static/img/entertainment.png">
         </div>
         <div class="top_menu">
             <div class="logo">संगीत</div>

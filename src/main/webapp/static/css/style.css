@@ -31,10 +31,12 @@ body {
 .wrapper .top_navbar .hamburger {
     width: 70px;
     height: 100%;
-    background: #2e4ead;
-    padding: 15px 17px;
+    background: #fff;
+    padding: 10px 15px;
     border-top-left-radius: 20px;
     cursor: pointer;
+    border: 2px solid #4360b5;
+    border-bottom: 0;
 }
 
 .wrapper .top_navbar .hamburger .icon {
