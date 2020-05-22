@@ -150,6 +150,9 @@
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" style="margin-top: 15px;">
+                        <button class="btn btn-info" ><a href="/" style="text-decoration: none ;color: unset">HOME</a></button>
+                    </li>
 
 <%--                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->--%>
 <%--                    <li class="nav-item dropdown no-arrow d-sm-none">--%>
@@ -282,7 +285,7 @@
                         pageContext.setAttribute("user",u);
                     %>
                     <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
+                    <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small">${user.getName()}</span>
                             <img class="img-profile rounded-circle" height="60px" width="60px" src="/img?path=${user.getphotopath()}">

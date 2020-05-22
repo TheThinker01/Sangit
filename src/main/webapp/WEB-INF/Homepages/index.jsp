@@ -5,8 +5,10 @@
 <%@ page import="DAO.MusicInterface" %>
 <%@ page import="DAO.PlaylistDeclaration" %>
 <%@ page import="DAO.PlaylistInterface" %>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ListIterator" %>
+<%@ page import="java.util.Set" %>
 <%--
   Created by IntelliJ IDEA.
   User: archi
@@ -144,8 +146,54 @@
             </div>
         </c:forEach>
     </div>
-    <div class="main_container container2">
-        <h2>This Weeks Top 10 Songs</h2>
+    <div class="main_container container2" style="display: block">
+        <h2 style="display: block">Your Playlists</h2>
+        <%
+            if(u==null)
+            {
+                %>
+                <div class="alert alert-warning " role="alert">
+            <h4 class="alert-heading">
+                Oops :(
+            </h4>
+            <hr>
+            <p>
+                You are not logged in. <a href="/login">Login </a> and comeback :) .
+            </p>
+        </div>
+        <%
+            }
+            else {
+                Set<Playlist> playlists = u.getPlaylists();
+                Iterator playlistsIt = playlists.iterator();
+                pageContext.setAttribute("playlists", playlistsIt);
+                %>
+                <table class="table table-hover ">
+                    <thead class="thead-dark" style="color: #fff; background-color: #444;border-radius: 15px;">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Visibility</th>
+                        <th scope="col">Actions</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${playlists}" var="playlist">
+                        <th scope="row">${playlist.getName()}</th>
+                        <td>${playlist.getVisibilty()}</td>
+                        <td><button class="btn btn-primary"><a href="/user/showPlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Show Tracks</a></button>
+                        <button class="btn btn-success">Play</button>
+                        <button class="btn btn-info">Enqueue</button>
+                            <button class="btn btn-danger"><a href="/user/DeletePlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Delete Playlist</a></button></td>
+
+                    </c:forEach>
+                    </tbody>
+                </table>
+        <%
+            }
+        %>
+
     </div>
     <div class="main_container container3">
 
@@ -428,10 +476,6 @@
                 if (e.which == 13)
                     $('#search-form').submit();
             })
-
-
-
-
 
             // getRatings();
 
