@@ -105,12 +105,15 @@
                                                                 <%--                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook--%>
                                                                     <%--                                    </a>--%>
                                             </form>
-                                            <hr>
                                             <div class="text-center">
                                                 <a class="small" href="/forgotPassword">Forgot Password?</a>
                                             </div>
                                             <div class="text-center">
                                                 <a class="small" href="/addUser">Create an Account!</a>
+                                            </div>
+                                            <hr>
+                                            <div class="text-center">
+                                                <a href="/" style="text-decoration: none ;color: unset"><button class="btn btn-info" >HOME</button></a>
                                             </div>
                                         </div>
                                     </div>

@@ -10,14 +10,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Forgot Password</title>
+    <title>File Issue</title>
 
     <!-- Custom fonts for this template-->
-    <link href="static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="static/admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/static/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -34,30 +34,36 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+                        <div class="col-lg-6 d-none d-lg-block bg-issue-image"></div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-2">Found Some Bug?</h1>
-                                    <p class="mb-4">We Apologise!<br>Fill the form below and we assure you we will get back to you and fix it. </p>
+                                    <p class="mb-4"><p style="color: #1cc88a">We Apologise!</p>Fill the form below and we assure you we will get back to you and fix it. </p>
                                 </div>
                                 <hr>
-                                      <form class="user" method="post" action="/user/addIssue">
-                                        <div class="form-group">
-                                          <input type="text" class="form-control form-control-user"  aria-describedby="emailHelp" placeholder="Title for you Issue">
-                                        </div>
-                                        <div class="form-group">
-                                          <input type="text" class="form-control form-control-user"  aria-describedby="emailHelp" placeholder="Your Name">
-                                        </div>
-                                        <div class="form-group">
-                                          <input type="email" class="form-control form-control-user"  aria-describedby="emailHelp" placeholder="Enter Email Address...">
-                                        </div>
-                                        <div class="form-group">
-                                          <textarea class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Describe your Issue">
-                                          </textarea>
-                                        </div>
-                                      </form>
+                              <form class="user" method="post" action="/user/addIssue">
+                                <div class="form-group">
+                                  <input type="text" class="form-control form-control-user" name="title" aria-describedby="emailHelp" placeholder="Title for you Issue" required>
+                                </div>
+                                <div class="form-group">
+                                  <input type="text" class="form-control form-control-user" name="name" aria-describedby="emailHelp" placeholder="Your Name" required>
+                                </div>
+                                <div class="form-group">
+                                  <input type="email" class="form-control form-control-user" name="email" aria-describedby="emailHelp" placeholder="Enter Email Address..." required>
+                                </div>
+                                <div class="form-group">
+                                  <textarea class="form-control" id="exampleInputEmail" name="description" aria-describedby="emailHelp" placeholder="Describe your Issue" required></textarea>
+                                </div>
+                                  <button type="submit" class="btn btn-warning btn-user btn-block">
+                                      File Complaint
+                                  </button>
+                              </form>
+                                <hr>
+                            <div class="text-center">
+                                <button class="btn btn-info" ><a href="/" style="text-decoration: none ;color: unset">HOME</a></button>
                             </div>
+
                         </div>
                     </div>
                 </div>

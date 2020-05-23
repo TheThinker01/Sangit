@@ -1,8 +1,3 @@
-/*!
- * Start Bootstrap - SB Admin 2 v4.0.7 (https://startbootstrap.com/template-overviews/sb-admin-2)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-sb-admin-2/blob/master/LICENSE)
- */
 
 
 /*!
@@ -10907,7 +10902,7 @@ a:focus {
 }
 
 .bg-login-image {
-    background: url('https://source.unsplash.com/EeuFRELzeS0');
+    background: url('/static/img/photo-1466232373731-46205f0b668e.jpg');
     background-position: center;
     background-size: cover
 }
@@ -10922,6 +10917,13 @@ a:focus {
     background: url(https://source.unsplash.com/GJY1eAw6tn8/600x800);
     background-position: center;
     background-size: contain;
+}
+
+.bg-issue-image {
+    background: url('/static/img/david-clode-zE99_-6MdYM-unsplash.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat:no-repeat ;
 }
 
 form.user .custom-checkbox.small label {

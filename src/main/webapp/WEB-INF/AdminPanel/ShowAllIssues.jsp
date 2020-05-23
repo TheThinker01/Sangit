@@ -181,7 +181,7 @@
     <div class="container main_container">
         <div class="alert-primary mb0 infotext"> <h3>${message}</h3> </div>
         <table class="table table-hover ">
-            <thead class="thead">
+            <thead class="thead-dark">
             <tr>
 
                 <th scope="col">#</th>

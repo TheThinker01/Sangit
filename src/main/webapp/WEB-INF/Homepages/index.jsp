@@ -76,7 +76,7 @@
                         <li><a style="all: unset" class="queue" >Song Queue</a></li>
                         <li><a style="all: unset" href="/updateProfile">Profile</a></li>
                         <div class="marker"></div>
-                        <li><a style="all: unset" href="/logout">Logout</a></li>
+                        <li><a style="all: unset"  href="#" data-toggle="modal" data-target="#logoutModal" >Logout</a></li>
                         <%}
                         else{
                         %>
@@ -104,12 +104,17 @@
             </li>
             <li>
                 <a href="/updateProfile">
-                    <span class="icon"><i class="fas fa-blog"></i></span><span class="title">My Account</span>
+                    <span class="icon"><i class="fas fa-user-circle"></i></span><span class="title">My Account</span>
                 </a>
             </li>
             <li class="admin-li">
                 <a href="/admin">
                     <span class="icon"><i class="fas fa-shield-alt"></i></span><span class="title">Admin</span>
+                </a>
+            </li>
+            <li class="issue-li">
+                <a href="/user/addIssue">
+                    <span class="icon"><i class="fas fa-exclamation-triangle"></i></span><span class="title">Report Issue</span>
                 </a>
             </li>
         </ul>
@@ -263,6 +268,25 @@
         </ul>
     </div>
 
+</div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
 </div>
 
     <script>

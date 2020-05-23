@@ -34,7 +34,7 @@ public class AddIssue extends HttpServlet {
         {
             String mtype = "danger";// Set the alert type
             String heading = "Failed";// Set the heading
-            String message = "The selected data could not be deleted!";//message to be displayed
+            String message = "Sorry! Some error occured. Try Again.";//message to be displayed
 
             req.setAttribute("mtype",mtype);
             req.setAttribute("heading",heading);

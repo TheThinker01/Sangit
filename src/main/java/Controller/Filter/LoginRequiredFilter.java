@@ -27,7 +27,7 @@ public class LoginRequiredFilter implements Filter {
         }
         else{
             String mtype = "danger";
-            String error = "You need To sign in to continue";
+            String error = "You need to sign in to continue";
             request.setAttribute("mtype",mtype);
             request.setAttribute("error",error);
             request.setAttribute("next",next);

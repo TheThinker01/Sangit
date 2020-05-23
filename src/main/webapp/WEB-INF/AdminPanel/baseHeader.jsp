@@ -110,6 +110,21 @@
             </div>
         </li>
 
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Issues Filed
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="admin/showAllIssues"  aria-expanded="true" >
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Show All Issues</span>
+            </a>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
