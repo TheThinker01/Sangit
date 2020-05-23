@@ -60,7 +60,7 @@
                     <input type="text" id="search-box" placeholder="Search Songs..." />
                 </form>
             </div>
-            <ul>
+            <ul style="margin-top: 10px">
                 <li class="li-search">
                     <a href="#"><i class="fas fa-search"></i></a>
                 </li>

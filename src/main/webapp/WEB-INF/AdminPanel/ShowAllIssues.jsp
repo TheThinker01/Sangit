@@ -1,16 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: archi
-  Date: 21-05-2020
-  Time: 23:25
+  Date: 23-05-2020
+  Time: 20:59
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Show Songs</title>
+    <title>All Issues</title>
     <%@include file="../common/commonlinks.jsp"%>
+    <script src="https://kit.fontawesome.com/194687f623.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,500,900&display=swap');
         @import url('https://fonts.googleapis.com/css?family=Gotu&display=swap&subset=devanagari');
@@ -162,7 +162,15 @@
         </div>
         <div class="top_menu">
             <div class="logo">संगीत</div>
-
+            <div class="search">
+                <form action="/admin/ShowAllUsers" method="post" id="search-form">
+                    <span><i class="fas fa-search fa-xs"></i></span>
+                    <input type="text" id="search-box" placeholder="Search by name" name="search"/>
+                    <span class="input-group-append">
+                        <button class="btn btn-info" type="submit">Go</button>
+                    </span>
+                </form>
+            </div>
             <ul>
                 <li class="li-account">
                     <a href="/"><i class="fas fa-home"></i></a>
@@ -178,7 +186,10 @@
 
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
-                <th scope="col">Artist</th>
+                <th scope="col">User's Name</th>
+                <th scope="col">User's Email</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date Created</th>
                 <%--            <th scope="col">--%>
                 <%--                <form method="post" action="/admin/ShowAllUsers">--%>
                 <%--                    <div class="input-group">--%>
@@ -196,16 +207,18 @@
 
             <c:forEach items="${it}" var="st">
                 <tr>
-
+                        <%--            name, String password, String email, String mobile_num,String category,String photopath ,String username--%>
                     <th scope="row">${st.getId()}</th>
                     <td>${st.getTitle()}</td>
-                    <td>${st.getArtist()}</td>
-                    <td><a href="/user/rsfp?mid=${st.getId()}&pid=${playlistId}" style="text-decoration: none;color: unset;"><button class="btn btn-warning">Remove</button></a></td>
+                    <td>${st.getName()}</td>
+                    <td>${st.getEmail()}</td>
+                    <td>${st.getDescription()}</td>
+                    <td>${st.getCreateDate()}</td>
+                    <td ><a class="delete" href="/admin/DeleteIssue?id=${st.getId()}">Delete</a></td>
                 </tr>
             </c:forEach>
 
             <tr></tr>
-
             </tbody>
         </table>
     </div>

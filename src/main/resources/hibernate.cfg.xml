@@ -16,5 +16,6 @@
         <mapping class="Bean.User"></mapping>
         <mapping class="Bean.Music"></mapping>
         <mapping class="Bean.Playlist"></mapping>
+        <mapping class="Bean.Issue"></mapping>
     </session-factory>
 </hibernate-configuration>
