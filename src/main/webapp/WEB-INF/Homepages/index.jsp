@@ -182,7 +182,7 @@
                     <c:forEach items="${playlists}" var="playlist">
                         <th scope="row">${playlist.getName()}</th>
                         <td>${playlist.getVisibilty()}</td>
-                        <td><button class="btn btn-primary"><a href="/user/showPlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Show Tracks</a></button>
+                        <td><button class="btn btn-primary"><a href="/user/showPlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Show Songs</a></button>
                         <button class="btn btn-success">Play</button>
                         <button class="btn btn-info">Enqueue</button>
                             <button class="btn btn-danger"><a href="/user/DeletePlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Delete Playlist</a></button></td>
