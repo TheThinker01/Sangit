@@ -11,4 +11,5 @@ public interface MusicInterface {
     Music selectMusic(long id);
     List selectAllMusics();
     List searchByTitle(String name);
+    List selectByUser(long id);// id = User's id
 }

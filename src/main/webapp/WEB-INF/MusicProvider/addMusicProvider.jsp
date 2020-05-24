@@ -1,20 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: archi
-  Date: 01-04-2020
-  Time: 18:21
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Register</title>
-<%--    <%@include file="../common/commonlinks.jsp"%>--%>
-    <link href="static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <%--    <%@include file="../common/commonlinks.jsp"%>--%>
+    <link href="/static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="static/admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/static/admin/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <%--<body>--%>
@@ -68,22 +61,25 @@
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">
+                                Create a Music Provider Account
+                            </h1>
+                            <h2 class="h4 text-blue-900 mb-4">Thank You for Helping Us Grow!</h2>
                         </div>
+
                         <div class="register-alert alert alert-danger" role="alert" style="width: 100%;margin:20px 0;">
                             <hr>
                             <p></p>
                             <hr>
-
                         </div>
                         <form class="user" method="post" action="/addUser" enctype="multipart/form-data">
-                            <input type="hidden" name="category" value="user">
+                            <input type="hidden" name="category" value="mp">
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" name="name" id="name" placeholder="Your Name" required/>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="number" class="form-control form-control-user" name="mobile_num" id="mobile_num" placeholder="Mobile Number" required/>
+                                    <input type="number" class="form-control form-control-user" name="mobile_num" id="mobile_num" placeholder="Contact Number" required/>
                                 </div>
                             </div>
                             <div class="form-group">

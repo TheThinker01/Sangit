@@ -16,6 +16,8 @@ public class Music {
     long rating,ratingCount;
     long duration;
 
+    private long userid;
+
     @ManyToMany(mappedBy = "songList",fetch = FetchType.EAGER)
     private Set<Playlist> playlists = new HashSet<Playlist>();
 
@@ -23,7 +25,7 @@ public class Music {
     public Music() {
     }
 
-    public Music(long rating,long ratingCount , String title, String artist, String albumart, String song, String mediapath, long duration) {
+    public Music(long rating,long ratingCount , String title, String artist, String albumart, String song, String mediapath, long duration,long userid) {
         this.rating = rating;
         this.ratingCount = ratingCount;
         this.title = title;
@@ -32,6 +34,15 @@ public class Music {
         this.song = song;
         this.mediapath = mediapath;
         this.duration = duration;
+        this.userid = userid;
+    }
+
+    public long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(long userid) {
+        this.userid = userid;
     }
 
     public Set<Playlist> getPlaylists() {

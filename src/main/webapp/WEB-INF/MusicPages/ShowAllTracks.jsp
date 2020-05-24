@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: archi
-  Date: 18-05-2020
-  Time: 09:49
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -189,7 +182,8 @@
                 <th scope="col">Artist</th>
                 <th scope="col">Album Art</th>
                 <th scope="col">Track</th>
-                <th scope="col">Duration</th>
+                <th scope="col">User Id</th>
+
                 <%--            <th scope="col">--%>
                 <%--                <form method="post" action="/admin/ShowAllUsers">--%>
                 <%--                    <div class="input-group">--%>
@@ -214,6 +208,7 @@
                     <td><a href="/img?path=${st.getAlbumart()}"><img src="/img?path=${st.getAlbumart()}" alt="Album Art" height="75px" width="75px" class="img-thumbnail"></a></td>
                             <td><a href="/music?path=${st.getMediapath()}">Click Here for Song</a></td>
                     <td ><a class="delete" href="/admin/DeleteMusic?id=${st.getId()}">Delete</a></td>
+                            <td>${st.getUserid()}</td>
                 </tr>
             </c:forEach>
 

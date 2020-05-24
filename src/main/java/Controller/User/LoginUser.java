@@ -47,6 +47,9 @@ public class LoginUser extends HttpServlet {
             {
                 resp.sendRedirect(next);
             }
+            else if(u2.getCategory().equals("mp")) {
+                resp.sendRedirect("/mp/mphome");
+            }
             else{
                 // Else redirect to the homepage
                 resp.sendRedirect("/");

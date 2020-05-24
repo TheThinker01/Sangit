@@ -49,13 +49,14 @@ public class CreateMusic extends HttpServlet {
 
 
         String title,artist,albumart,musicfile,song;
-        long duration;
+        long duration,userid;
         albumart = "";
         musicfile = "";
         song = "";
         title = req.getParameter("title");
         artist = req.getParameter("artist");
         duration =Long.parseLong(req.getParameter("duration"));
+        userid =Long.parseLong(req.getParameter("userid"));
         // Extract file
         String fileName="";
         String fileExtension = null;
@@ -89,7 +90,7 @@ public class CreateMusic extends HttpServlet {
         System.out.println(req.getParameter("title"));
 
 //        duration=0;
-        Music m = new Music(0,0,title,artist,albumart,song,musicfile,duration);
+        Music m = new Music(0,0,title,artist,albumart,song,musicfile,duration,userid);
         MusicInterface mi = new MusicDeclaration();
         mi.musicInsert(m);
 

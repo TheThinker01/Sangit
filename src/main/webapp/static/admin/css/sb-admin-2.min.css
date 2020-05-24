@@ -10918,7 +10918,12 @@ a:focus {
     background-position: center;
     background-size: contain;
 }
-
+.bg-musicprovider-image {
+    background: url('/static/img/photo-1531651008558-ed1740375b39.jpg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 .bg-issue-image {
     background: url('/static/img/david-clode-zE99_-6MdYM-unsplash.jpg');
     background-position: center;

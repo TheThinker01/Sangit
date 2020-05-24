@@ -23,8 +23,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Sangit</title>
-
-
     <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-beta/css/bootstrap.min.css" >
     <script src="/webjars/jquery/3.2.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -107,14 +105,22 @@
                     <span class="icon"><i class="fas fa-user-circle"></i></span><span class="title">My Account</span>
                 </a>
             </li>
+
+            <li class="issue-li">
+                <a href="/user/addIssue">
+                    <span class="icon"><i class="fas fa-exclamation-triangle"></i></span><span class="title">Report Issue</span>
+                </a>
+            </li>
+
             <li class="admin-li">
                 <a href="/admin">
                     <span class="icon"><i class="fas fa-shield-alt"></i></span><span class="title">Admin</span>
                 </a>
             </li>
+
             <li class="issue-li">
-                <a href="/user/addIssue">
-                    <span class="icon"><i class="fas fa-exclamation-triangle"></i></span><span class="title">Report Issue</span>
+                <a href="/welcome">
+                    <span class="icon"><i class="fas fa-podcast"></i></span><span class="title">Music Provider</span>
                 </a>
             </li>
         </ul>

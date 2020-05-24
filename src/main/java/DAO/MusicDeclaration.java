@@ -117,6 +117,17 @@ public class MusicDeclaration implements MusicInterface {
         }
     }
 
+    @Override
+    public List selectByUser(long id) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
+        Query query = session.createQuery("from Music where userid like :searchfield");
+        query.setLong("searchfield", id);
+        List lis = query.list();
+        session.close();
+        return lis;
+    }
+
     public static void main(String[] args)
     {
 //        Music  m = new Music("Breaking bad", "Archisman Pathak", "Nothing yet","will be updated","Soon",100);

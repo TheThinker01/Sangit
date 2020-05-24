@@ -10,7 +10,7 @@
 <head>
     <title>Your Profile</title>
     <%@include file="../common/commonlinks.jsp"%>
-    <link href="static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,500,900&display=swap');
         @import url('https://fonts.googleapis.com/css?family=Gotu&display=swap&subset=devanagari');
@@ -146,8 +146,8 @@
             <input type="text" name="name" value="${st.getName()}" class="form-control" required/>
         </fieldset>
         <fieldset class="form-group">
-            <label>Category</label>
-            <input type="text" name="category" value="${st.getCategory()}" class="form-control" required/>
+<%--            <label>Category</label>--%>
+            <input type="hidden" name="category" value="${st.getCategory()}" class="form-control" required/>
         </fieldset>
         <fieldset class="form-group">
             <label>Email</label>

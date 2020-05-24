@@ -1,16 +1,9 @@
-<%@ page import="Bean.User" %><%--
-  Created by IntelliJ IDEA.
-  User: archi
-  Date: 01-05-2020
-  Time: 13:30
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Add Music Track</title>
+    <title>Your Music Tracks</title>
     <%@include file="../common/commonlinks.jsp"%>
-    <link href="static/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <%--    <script src="https://kit.fontawesome.com/194687f623.js" crossorigin="anonymous"></script>--%>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:300,500,900&display=swap');
         @import url('https://fonts.googleapis.com/css?family=Gotu&display=swap&subset=devanagari');
@@ -32,7 +25,9 @@
             margin-top: 60px;
         }
         .main_container{
-            padding:50px 50px;
+            padding:50px 20px;
+            margin-left: 50px;
+            margin-right: 50px;
         }
         label{
             font-size: 18px;
@@ -92,6 +87,22 @@
         }
 
 
+        .wrapper .top_navbar .top_menu .search {
+            color: #999;
+            border: 1.5px solid #92a6e2;
+            padding: 5px 5px;
+            border-radius: 10px;
+            transition: all 0.3 ease-in;
+        }
+
+        .wrapper .top_navbar .top_menu #search-box {
+            margin-left: 5px;
+            border: none;
+            color: #999;
+            font-weight: 300;
+        }
+
+
         .wrapper .top_navbar .top_menu ul {
             margin-top: 10px;
             display: flex;
@@ -115,6 +126,22 @@
             background: #4360b5;
             color: #fff;
         }
+        .update,.delete{
+            border-radius:10px ;
+            padding: 5px;
+        }
+        .update{
+            border: thin solid green;
+        }
+        .delete{
+            border: thin solid red;
+        }
+        .infotext{
+            padding: 10px;
+            padding-left: 20px;
+            border-top-left-radius: 10px;
+            border: 2px solid #1696ff;
+        }
     </style>
 </head>
 <body>
@@ -128,7 +155,6 @@
         </div>
         <div class="top_menu">
             <div class="logo">संगीत</div>
-
             <ul>
                 <li class="li-account">
                     <a href="/"><i class="fas fa-home"></i></a>
@@ -136,38 +162,48 @@
             </ul>
         </div>
     </div>
-    <% User u =(User) request.getSession().getAttribute("loggedIn");
-        if(u==null || (!u.getCategory().equals("mp") && !u.getCategory().equals("Admin")))
-        {
-            response.sendRedirect("/login");
-        }
-    %>
     <div class="container main_container">
-        <form method="post" action="/addMusic" enctype="multipart/form-data" >
-            <fieldset class="form-group">
-                <label>Title</label>
-                <input type="text" name="title"  class="form-control" required/>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Artist</label>
-                <input type="text" name="artist"  class="form-control" required/>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Music Image Upload</label>
-                <input type="file" name="albumart"  class="form-control" required/>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Music Track Upload</label>
-                <input type="file" name="musicfile"  class="form-control" required/>
-            </fieldset>
-            <fieldset class="form-group">
-                <label>Duration</label>
-                <input type="text" name="duration"  class="form-control" required/>
-            </fieldset>
-            <input type="hidden" name="userid"  value="${u.getId()}" class="form-control" required/>
-            <button type="submit" class="btn btn-success">Add Track</button>
-        </form>
+        <div class="alert-primary mb0 infotext"> <h3>${message}</h3> </div>
+        <table class="table table-hover ">
+            <thead class="thead">
+            <tr>
+
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Artist</th>
+                <th scope="col">Album Art</th>
+                <th scope="col">Track</th>
+                <%--            <th scope="col">--%>
+                <%--                <form method="post" action="/admin/ShowAllUsers">--%>
+                <%--                    <div class="input-group">--%>
+                <%--                        <input type="text" class="form-control" placeholder="Search By Name" name="search" style="width: 75px;">--%>
+                <%--                        <div class="input-group-append">--%>
+                <%--                            <button class="btn btn-success" type="submit">Go</button>--%>
+                <%--                        </div>--%>
+                <%--                    </div>--%>
+                <%--                </form>--%>
+                <%--            </th>--%>
+            </tr>
+            </thead>
+            <tbody>
+
+            <c:forEach items="${it}" var="st">
+                <tr>
+                        <%--            name, String password, String email, String mobile_num,String category,String photopath ,String username--%>
+                    <th scope="row">${st.getId()}</th>
+                    <td>${st.getTitle()}</td>
+                    <td>${st.getArtist()}</td>
+                    <td><a href="/img?path=${st.getAlbumart()}"><img src="/img?path=${st.getAlbumart()}" alt="Album Art" height="75px" width="75px" class="img-thumbnail"></a></td>
+                    <td><a href="/music?path=${st.getMediapath()}">Click Here for Song</a></td>
+                </tr>
+            </c:forEach>
+
+            <tr></tr>
+
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
 </html>
+
