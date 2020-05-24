@@ -188,13 +188,14 @@
                         <th scope="row">${playlist.getName()}</th>
                         <td>${playlist.getVisibilty()}</td>
                         <td><button class="btn btn-primary"><a href="/user/showPlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Show Songs</a></button>
-                        <button class="btn btn-success">Play</button>
-                        <button class="btn btn-info">Enqueue</button>
+                        <button class="btn btn-success" id="PlayPlaylistBtn" data-playid="${playlist.getId()}">Play</button>
+                        <button class="btn btn-info" id="EnqueuPlaylistBtn" data-playid="${playlist.getId()}">Enqueue</button>
                             <button class="btn btn-danger"><a href="/user/DeletePlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Delete Playlist</a></button></td>
 
                     </c:forEach>
                     </tbody>
                 </table>
+        <div class="alert-primary mb0 infotext"> <h3><a href="/user/addPlaylist">Click Here</a> to add a new playlist</h3> </div>
         <%
             }
         %>
@@ -711,6 +712,39 @@
                 }
             });
 
+            // Play Playlist Button
+            $('#PlayPlaylistBtn').click(function(){
+                $.ajax({
+                    url : 'sendPlaylistData',
+                    data : {
+                        id : $('#PlayPlaylistBtn').attr('data-playid'),
+                    },
+                    success: function(responseJSON){
+                        var newarray = [];
+                        $.each(responseJSON,function (index,music) {
+                            var li = $('<li></li>');
+                            li.attr("songid",music.id);
+                            li.attr("song","/music?path="+music.mediapath);
+                            li.attr("cover","/img?path="+music.albumart);
+                            li.attr("artist",music.artist);
+                            li.attr("rating",music.rating);
+                            li.text(music.title);
+                            newarray.push(li);
+                        });
+                        console.log(newarray);
+                        queue = newarray;
+                        UpdateDomQueue();
+                        index = 0;
+                        var e = jQuery(queue[index]);
+                        initAudio(e);
+                        audio.play();
+                        $('#play').hide();
+                        $('#pause').show();
+                        showDuration();
+                        displayQueue();
+                    }
+                });
+            });
 
             // Time Duration
             function showDuration() {
@@ -887,6 +921,9 @@
             }
         }
 
+        function getSongList(){
+
+        }
 
 
         });

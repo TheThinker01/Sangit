@@ -436,7 +436,12 @@ body {
     margin-left: 70px;
 }
 
-
+.infotext{
+    padding: 10px;
+    padding-left: 20px;
+    border-bottom-left-radius: 10px;
+    border: 2px solid #1696ff;
+}
 .modal-open {
     overflow: hidden
 }
