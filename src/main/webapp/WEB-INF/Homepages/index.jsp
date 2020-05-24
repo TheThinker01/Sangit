@@ -122,6 +122,7 @@
     </div>
 
     <div class="main_container container1">
+        <h2 style="display: block">Popular Hindi Songs</h2>
         <%
             MusicInterface mi = new MusicDeclaration();
             List musiclist;
@@ -132,6 +133,7 @@
             }
             pageContext.setAttribute("it",it);
         %>
+        <div class="music-row">
         <c:forEach items="${it}" var="music">
             <div class="music-item">
                 <li songid ="${music.getId()}" song="/music?path=${music.getMediapath()}" cover="/img?path=${music.getAlbumart()}" artist="${music.getArtist()}" rating="${music.getRating()}" style="display: none;"> ${music.getTitle()}</li>
@@ -150,6 +152,41 @@
                 </div>
             </div>
         </c:forEach>
+        </div>
+        <hr>
+        <h2 style="display: block">Popular English Songs</h2>
+        <%
+            List musiclisttwo;
+            musiclisttwo = mi.selectAllMusics();
+            ListIterator ittwo = null;
+            if(musiclisttwo!=null) {
+                ittwo = musiclisttwo.listIterator();
+            }
+            pageContext.setAttribute("it2",ittwo);
+        %>
+        <div class="music-row">
+        <c:forEach items="${it2}" var="music">
+            <div class="music-item">
+                <li songid ="${music.getId()}" song="/music?path=${music.getMediapath()}" cover="/img?path=${music.getAlbumart()}" artist="${music.getArtist()}" rating="${music.getRating()}" style="display: none;"> ${music.getTitle()}</li>
+                <div class="music-item-body">
+                    <div class="music-item-hover">
+                        <span class="ratings music-overlay-buttons"><i class="fas fa-star fa-xs"></i><i class="far fa-star fa-xs"></i></span>
+                        <span class="play music-overlay-buttons"><i class="fab fa-google-play fa-3x"></i></span>
+                        <span class="pause music-overlay-buttons"><i class="fas fa-pause fa-3x"></i></span>
+                        <span class="add-to-queue music-overlay-buttons" id="${music.getId()}" ><i class="fas fa-plus-circle fa-xs"></i></span>
+                        <span class="rate music-overlay-buttons"><i class="far fa-edit fa-xs"></i></span>
+                    </div>
+                </div>
+                <div class="music-item-text">
+                    <div class="title"></div>
+                    <div class="artist"></div>
+                </div>
+            </div>
+        </c:forEach>
+        </div>
+
+
+
     </div>
     <div class="main_container container2" style="display: block">
         <h2 style="display: block">Your Playlists</h2>
@@ -189,7 +226,7 @@
                         <td>${playlist.getVisibilty()}</td>
                         <td><button class="btn btn-primary"><a href="/user/showPlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Show Songs</a></button>
                         <button class="btn btn-success" id="PlayPlaylistBtn" data-playid="${playlist.getId()}">Play</button>
-                        <button class="btn btn-info" id="EnqueuPlaylistBtn" data-playid="${playlist.getId()}">Enqueue</button>
+                        <button class="btn btn-info" id="EnqueuePlaylistBtn" data-playid="${playlist.getId()}">Enqueue</button>
                             <button class="btn btn-danger"><a href="/user/DeletePlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Delete Playlist</a></button></td>
 
                     </c:forEach>
@@ -717,7 +754,7 @@
                 $.ajax({
                     url : 'sendPlaylistData',
                     data : {
-                        id : $('#PlayPlaylistBtn').attr('data-playid'),
+                        id : $(this).attr('data-playid'),
                     },
                     success: function(responseJSON){
                         var newarray = [];
@@ -734,7 +771,9 @@
                         console.log(newarray);
                         queue = newarray;
                         UpdateDomQueue();
+
                         index = 0;
+                        audio.pause();
                         var e = jQuery(queue[index]);
                         initAudio(e);
                         audio.play();
@@ -745,7 +784,40 @@
                     }
                 });
             });
-
+            $('#EnqueuePlaylistBtn').click(function(){
+                $.ajax({
+                    url : 'sendPlaylistData',
+                    data : {
+                        id : $(this).attr('data-playid'),
+                    },
+                    success: function(responseJSON){
+                        var newarray = [];
+                        $.each(responseJSON,function (index,music) {
+                            var li = $('<li></li>');
+                            li.attr("songid",music.id);
+                            li.attr("song","/music?path="+music.mediapath);
+                            li.attr("cover","/img?path="+music.albumart);
+                            li.attr("artist",music.artist);
+                            li.attr("rating",music.rating);
+                            li.text(music.title);
+                            newarray.push(li);
+                        });
+                        console.log(newarray);
+                        queue = queue.concat(newarray);
+                        console.log(queue);
+                        UpdateDomQueue();
+                        index = 0;
+                        audio.pause();
+                        var e = jQuery(queue[index]);
+                        initAudio(e);
+                        audio.play();
+                        $('#play').hide();
+                        $('#pause').show();
+                        showDuration();
+                        displayQueue();
+                    }
+                });
+            });
             // Time Duration
             function showDuration() {
 
