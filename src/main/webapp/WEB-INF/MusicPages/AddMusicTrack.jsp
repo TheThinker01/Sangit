@@ -141,6 +141,7 @@
         {
             response.sendRedirect("/login");
         }
+        pageContext.setAttribute("u",u);
     %>
     <div class="container main_container">
         <form method="post" action="/addMusic" enctype="multipart/form-data" >

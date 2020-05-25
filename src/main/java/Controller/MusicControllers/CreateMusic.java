@@ -56,7 +56,7 @@ public class CreateMusic extends HttpServlet {
         title = req.getParameter("title");
         artist = req.getParameter("artist");
         duration =Long.parseLong(req.getParameter("duration"));
-        userid =Long.parseLong(req.getParameter("userid"));
+        userid = Long.parseLong(req.getParameter("userid"));
         // Extract file
         String fileName="";
         String fileExtension = null;

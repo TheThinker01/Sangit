@@ -53,9 +53,12 @@
         <div class="top_menu">
             <div class="logo">संगीत</div>
             <div class="search">
-                <form action="" method="post" id="search-form">
+                <form  id="search-songs-form" >
                     <span><i class="fas fa-search fa-xs"></i></span>
-                    <input type="text" id="search-box" placeholder="Search Songs..." />
+                    <input type="text" id="search-box" name="songsearch" placeholder="Search Songs..." />
+                    <span class="input-group-append">
+                        <button class="btn btn-info" type="button" onclick="searchSongs()">Go</button>
+                    </span>
                 </form>
             </div>
             <ul style="margin-top: 10px">
@@ -79,6 +82,8 @@
                         else{
                         %>
                         <li><a style="all: unset" href="/login">Login</a></li>
+                        <hr>
+                        <li><a style="all: unset" href="/addUser">Register</a></li>
                         <% } %>
                     </ul>
                 </li>
@@ -272,6 +277,11 @@
             </tbody>
         </table>
     </div>
+
+<%--     For handling search requests --%>
+    <div class="main_container search-container">
+
+    </div>
     <div class="footer">
         <span class="audio-buttons" id="prev"><i class="fas fa-backward fa-2x"></i></span>
         <span class="audio-buttons" id="play"><i class="fab fa-google-play fa-3x"></i></span>
@@ -360,6 +370,7 @@
             $('.music-item-hover .pause').hide();
             $('.container2').hide();
             $('.container3').hide();
+            $('.search-container').hide();
             var repeat = 0;
 
 
@@ -453,7 +464,7 @@
 
 
             // Pressing the play button
-            $('.music-item-hover .play').click(function() {
+            $('.music-item-hover .play').click(function playButton() {
                 // First make all pause buttons disappear and play buttons appear
                 $('.music-item-hover .play').show();
                 $('.music-item-hover .pause').hide();
@@ -539,11 +550,11 @@
 
             });
 
-            // Submit Songs Search on Enter
-            $('.li-search').keyup(function(e) {
-                if (e.which == 13)
-                    $('#search-form').submit();
-            })
+            // // Submit Songs Search on Enter
+            // $('.li-search').keyup(function(e) {
+            //     if (e.which == 13)
+            //         $('#search-form').submit();
+            // })
 
             // getRatings();
 
@@ -999,9 +1010,206 @@
             }
         }
 
-        function getSongList(){
+            //// Function for searching songs
+            $('#search-songs-form').on("submit",function (e) {
+                e.preventDefault();
+                searchSongs();
+            });
+            function searchSongs() {
+                console.log("Entered Function");
+                $.ajax({
+                    url : 'searchSongs',
+                    data:{
+                        name : $('#search-box').val(),
+                    },
+                    success: function (responseJson) {
+                        console.log(responseJson);
+                        $('.main_container').hide();
+                        $('.search-container').show();
+                        $('.search-container').html(" ");
+                        var html = "<h2>Songs matching you query are</h2>";
+                        html += "<div class=\"music-row\">";
+                        $.each(responseJson,function (index,music) {
+                            html += "<div class=\"music-item\">";
+                            html += "<li songid =\""+ music.id.toString() +"\" song=\"/music?path="+music.mediapath+"\" cover=\"/img?path="+music.albumart+"\" artist=\""+music.artist +" \" rating=\" "+ music.rating.toString()+" \" style=\"display: none;\">"+ music.title +"</li>";
+                            html += "<div class=\"music-item-body\">\n" +
+                                "                    <div class=\"music-item-hover\">\n" +
+                                "                        <span class=\"ratings music-overlay-buttons\"><i class=\"fas fa-star fa-xs\"></i><i class=\"far fa-star fa-xs\"></i></span>\n" +
+                                "                        <span class=\"play music-overlay-buttons\"><i class=\"fab fa-google-play fa-3x\"></i></span>\n" +
+                                "                        <span class=\"pause music-overlay-buttons\"><i class=\"fas fa-pause fa-3x\"></i></span>\n" +
+                                "                        <span class=\"add-to-queue music-overlay-buttons\" id=\"${music.getId()}\" ><i class=\"fas fa-plus-circle fa-xs\"></i></span>\n" +
+                                "                        <span class=\"rate music-overlay-buttons\"><i class=\"far fa-edit fa-xs\"></i></span>\n" +
+                                "                    </div>\n" +
+                                "                </div>\n" +
+                                "                <div class=\"music-item-text\">\n" +
+                                "                    <div class=\"title\"></div>\n" +
+                                "                    <div class=\"artist\"></div>\n" +
+                                "                </div>\n" +
+                                "            </div>\n";
+                        });
+                        html += "</div>";
+                        $('.search-container').append(html);
 
-        }
+                        $('.music-item-hover').hide();
+                        $('.music-item-hover .pause').hide();
+
+                        $('.music-item-body').hover(function() {
+                            $(this).find('div').toggle();
+                        });
+
+                        // For Highlighting the buttons on overlay
+                        $('.music-item-hover .music-overlay-buttons').on('mouseenter', function() {
+                            $(this).css('opacity', '1');
+                        });
+
+                        $('.music-item-hover .music-overlay-buttons').on('mouseleave', function(e) {
+                            $(this).css('opacity', '0.75');
+                        });
+
+                        // Add song to queue button
+                        $('.music-item-hover .add-to-queue').click(function(e) {
+                            e = jQuery(e.target);
+                            var x = e.parents().eq(3);
+                            var y = x.find('li');
+                            var name = y.text();
+                            console.log(queue);
+                            queue.push(y[0]);
+                            console.log(queue);
+                            UpdateDomQueue();
+                            alert('Song " ' + name + ' " was added to the end of your song queue');
+
+                        });
+
+                        // Pressing the play button
+                        $('.music-item-hover .play').click(function playButton() {
+                            // First make all pause buttons disappear and play buttons appear
+                            $('.music-item-hover .play').show();
+                            $('.music-item-hover .pause').hide();
+                            audio.pause();
+
+                            // Then carry on with operation
+                            var x = $(this).parents().eq(2);
+                            var y = x.find('li');
+                            var name = y.text();
+                            // TODO -> COMPLETE THIS
+                            console.log(y);
+                            queue.unshift(y[0]);
+                            console.log(queue);
+                            index = 0;
+                            var e = jQuery(queue[index]);
+                            initAudio(e);
+                            audio.play();
+                            $('#play').hide();
+                            $('#pause').show();
+                            showDuration();
+                            UpdateDomQueue();
+                            alert('Song " ' + name + ' " is now playing');
+
+                            // Finally make play button disappear for this element
+                            // and pause appear
+                            $(this).toggle();
+                            $(this).next().toggle();
+                        });
+
+                        // Clicking on Pause button on the overlay
+                        $('.music-item-hover .pause').click(function() {
+                            audio.pause();
+                            $('.music-item-hover .play').show();
+                            $('.music-item-hover .pause').hide();
+                            $('#play').show();
+                            $('#pause').hide();
+                        });
+
+                        // Clicking on the add review button
+                        $('.music-item-hover .rate').click(function() {
+                            var music_id=$(this).parents().eq(2).find('li').attr('songid');
+                            $.confirm({
+                                title: 'Rate this song!',
+                                content: ''+
+                                    '<form action="/addRating" class="formName" method="post">' +
+                                    '<div class="form-group">'+
+                                    '<input type="hidden" name="musicid" value="'+music_id+'">'+
+                                    '<h5>Enter Rating(0-5)</h5>'+
+                                    '<label class="radio-inline m-1"><input type="radio" class="name" name="rating" value="0" >0</label>'+
+                                    '<label class="radio-inline m-1"><input type="radio" class="name" name="rating" value="1" >1</label>'+
+                                    '<label class="radio-inline m-1"><input type="radio" class="name"  name="rating" value="2" >2</label>'+
+                                    '<label class="radio-inline m-1"><input type="radio" class="name"  name="rating" value="3" >3</label>'+
+                                    '<label class="radio-inline m-1"><input type="radio" class="name"  name="rating" value="4" >4</label>'+
+                                    '<label class="radio-inline m-1"><input type="radio" class="name"  name="rating" value="5" checked>5</label>'+
+                                    '</div>' +
+                                    '</form>',
+                                buttons: {
+                                    formSubmit: {
+                                        text: 'Submit',
+                                        btnClass: 'btn-blue',
+                                        action: function () {
+                                            var name = this.$content.find('.name').val();
+                                            console.log(name);
+                                            $.alert('Song Rated');
+                                            this.$content.find('form').submit();
+                                        }
+
+                                    },
+                                    cancel: function () {
+                                        //close
+                                    },
+                                },
+                                onContentReady: function () {
+                                    // bind to events
+                                    var jc = this;
+                                    this.$content.find('form').on('submit', function (e) {
+                                        // if the user submits the form by pressing enter in the field.
+
+                                        // reference the button and click it
+                                    });
+                                }
+                            });
+
+                        });
+
+                        $('.ratings').each(function(index) {
+                            var m = jQuery($('.ratings')[index]);
+                            var x = m.parents().eq(2);
+                            // console.log(x);
+                            var y = x.find('li');
+                            // console.log(y);
+                            var rating = y.attr('rating');
+                            // console.log(rating);
+                            m.html(" ");
+                            for (var i = 0; i < rating; i++) {
+                                m.append('<i class = "fas fa-star fa-xs" > </i>');
+                            }
+                            for (var i = rating; i < 5; i++) {
+                                m.append('<i class = "far fa-star fa-xs" > </i>');
+                            }
+                        });
+
+                        // Generate The artist name and title for each tab  and the background image
+                        $('.music-item').each(function(index) {
+                            var m = jQuery($('.music-item')[index]);
+                            var x = m.find('li');
+
+                            var img = x.attr('cover');
+                            // console.log(img);
+                            img = img.replace(/\\/g, "/" );
+
+                            var title = x.text();
+                            var artist = x.attr('artist');
+                            // console.log(img);
+                            var l = m.find('.music-item-body');
+                            l.css('background', 'url("' + img + '") no-repeat');
+                            // console.log(l);
+                            // get title
+                            var p = m.find('.title');
+                            p.text(title);
+                            var q = m.find('.artist');
+                            q.text(artist);
+
+                            // console.log(title);
+                        });
+                    }
+                });
+            }
 
 
         });

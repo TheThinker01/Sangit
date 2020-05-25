@@ -55,6 +55,9 @@
                                 <a href="/login" class="btn btn-info btn-user btn-block">
                                     Login
                                 </a>
+                                <a href="/mp/mphome" class="btn btn-primary btn-user btn-block">
+                                    Goto Music Provider Interface
+                                </a>
                                 <hr>
                                 <a href="/" class="btn btn-success btn-user btn-block">
                                     Home

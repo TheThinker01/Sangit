@@ -183,17 +183,6 @@
                 <th scope="col">Album Art</th>
                 <th scope="col">Track</th>
                 <th scope="col">User Id</th>
-
-                <%--            <th scope="col">--%>
-                <%--                <form method="post" action="/admin/ShowAllUsers">--%>
-                <%--                    <div class="input-group">--%>
-                <%--                        <input type="text" class="form-control" placeholder="Search By Name" name="search" style="width: 75px;">--%>
-                <%--                        <div class="input-group-append">--%>
-                <%--                            <button class="btn btn-success" type="submit">Go</button>--%>
-                <%--                        </div>--%>
-                <%--                    </div>--%>
-                <%--                </form>--%>
-                <%--            </th>--%>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -206,9 +195,10 @@
                     <td>${st.getTitle()}</td>
                     <td>${st.getArtist()}</td>
                     <td><a href="/img?path=${st.getAlbumart()}"><img src="/img?path=${st.getAlbumart()}" alt="Album Art" height="75px" width="75px" class="img-thumbnail"></a></td>
-                            <td><a href="/music?path=${st.getMediapath()}">Click Here for Song</a></td>
+                    <td><a href="/music?path=${st.getMediapath()}">Click Here for Song</a></td>
+                    <td>${st.getUserid()}</td>
                     <td ><a class="delete" href="/admin/DeleteMusic?id=${st.getId()}">Delete</a></td>
-                            <td>${st.getUserid()}</td>
+
                 </tr>
             </c:forEach>
 
