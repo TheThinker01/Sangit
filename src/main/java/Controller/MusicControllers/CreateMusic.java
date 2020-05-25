@@ -29,7 +29,8 @@ public class CreateMusic extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String applicationPath = getServletContext().getRealPath(""),
-                uploadPath = applicationPath+File.separator + UPLOAD_DIR;
+                uploadPath =applicationPath + File.separator + UPLOAD_DIR;
+        String shortUploadPath = File.separator + UPLOAD_DIR;
 
         // Now album images are to be stored at /img
         // and the audio files in media itself
@@ -72,14 +73,14 @@ public class CreateMusic extends HttpServlet {
                 if(fileExtension.equals("mp3"))// If it is a audio file
                 {
                     System.out.println("Audio file detected");
-                    musicfile = uploadPath + File.separator + fileName;
+                    musicfile = shortUploadPath + File.separator + fileName;
                     song = fileName;
                     part.write(uploadPath + File.separator + fileName);
                     System.out.println(uploadPath + File.separator + fileName);
                 }
                 if(fileExtension.toLowerCase().equals("jpg") || fileExtension.toLowerCase().equals("png")||fileExtension.toLowerCase().equals("jpeg")) {
                     System.out.println("Image file detected");
-                    albumart = uploadPath+ File.separator + "img" + File.separator + fileName;
+                    albumart = shortUploadPath+ File.separator + "img" + File.separator + fileName;
                     part.write(uploadPath+ File.separator + "img" + File.separator + fileName);
                     System.out.println(imgPath + File.separator + fileName);
                 }System.out.println("Upload Success");

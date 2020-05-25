@@ -45,9 +45,6 @@
 <div class="wrapper">
     <div class="top_navbar">
         <div class="hamburger">
-            <!-- <div></div>
-            <div></div>
-            <div></div> -->
             <img height="40px" width="40px" src="/static/img/entertainment.png">
         </div>
         <div class="top_menu">
@@ -506,6 +503,7 @@
             // Clicking on the add review button
             $('.music-item-hover .rate').click(function() {
                 var music_id=$(this).parents().eq(2).find('li').attr('songid');
+                console.log(music_id);
                 $.confirm({
                     title: 'Rate this song!',
                     content: ''+
