@@ -118,6 +118,24 @@ public class PlaylistDeclaration implements PlaylistInterface {
     }
 
     @Override
+    public List selectByVisibility(String name) {
+        sf = SessionFact.getSessionFact();
+        session = sf.openSession();
+        if (name == null) {
+            List res = selectAllPlaylists();
+            session.close();
+            return res;
+        }
+        else {
+            Query query = session.createQuery("from Playlist where visibilty like :searchfield");
+            query.setString("searchfield", "%"+name+"%");
+            List lis = query.list();
+            session.close();
+            return lis;
+        }
+    }
+
+    @Override
     public List selectByUser(User u) {
         sf = SessionFact.getSessionFact();
         session = sf.openSession();

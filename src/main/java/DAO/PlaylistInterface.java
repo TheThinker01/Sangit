@@ -13,5 +13,5 @@ public interface PlaylistInterface {
     List selectAllPlaylists();
     List searchByName(String name);
     List selectByUser(User u);
-
+    List selectByVisibility(String visibility);
 }

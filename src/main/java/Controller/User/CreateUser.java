@@ -32,6 +32,8 @@ public class CreateUser extends HttpServlet {
         String applicationPath = getServletContext().getRealPath(""),
                 uploadPath = applicationPath + File.separator + UPLOAD_DIR;
 
+        String shortUploadPath = File.separator + UPLOAD_DIR;
+
         File fileUploadDirectory = new File(uploadPath);
         if (!fileUploadDirectory.exists()) {
             fileUploadDirectory.mkdirs();
@@ -44,7 +46,7 @@ public class CreateUser extends HttpServlet {
             try {
                 part.write(uploadPath + File.separator + fileName);
                 System.out.println(uploadPath + File.separator + fileName);
-                photopath = (uploadPath + File.separator + fileName).toString();
+                photopath = (shortUploadPath + File.separator + fileName).toString();
                 System.out.println("Upload Success");
             } catch (IOException ioObj) {
 

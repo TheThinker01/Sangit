@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="Bean.Music" %>
 <%@ page import="Bean.Playlist" %>
 <%@ page import="Bean.User" %>
 <%@ page import="DAO.MusicDeclaration" %>
@@ -54,7 +55,7 @@
                     <span><i class="fas fa-search fa-xs"></i></span>
                     <input type="text" id="search-box" name="songsearch" placeholder="Search Songs..." />
                     <span class="input-group-append">
-                        <button class="btn btn-info" type="button" onclick="searchSongs()">Go</button>
+                        <button class="btn btn-info" type="submit">Go</button>
                     </span>
                 </form>
             </div>
@@ -134,12 +135,19 @@
         <%
             MusicInterface mi = new MusicDeclaration();
             List musiclist;
-            musiclist = mi.selectAllMusics();
+            musiclist = pi.searchByName("PopularHindiSongs");
             ListIterator it = null;
+            Iterator hit;
             if(musiclist!=null) {
                it = musiclist.listIterator();
+                Playlist p =(Playlist) it.next();
+                Set<Music> musicSet = p.getSongList();
+                hit = musicSet.iterator();
             }
-            pageContext.setAttribute("it",it);
+            else{
+                hit = null;
+            }
+            pageContext.setAttribute("it",hit);
         %>
         <div class="music-row">
         <c:forEach items="${it}" var="music">
@@ -165,12 +173,19 @@
         <h2 style="display: block">Popular English Songs</h2>
         <%
             List musiclisttwo;
-            musiclisttwo = mi.selectAllMusics();
+            musiclisttwo = pi.searchByName("PopularEnglishSongs");
             ListIterator ittwo = null;
+            Iterator eit;
             if(musiclisttwo!=null) {
                 ittwo = musiclisttwo.listIterator();
+                Playlist p =(Playlist) ittwo.next();
+                Set<Music> musicSet = p.getSongList();
+                eit = musicSet.iterator();
             }
-            pageContext.setAttribute("it2",ittwo);
+            else{
+                eit=null;
+            }
+            pageContext.setAttribute("it2",eit);
         %>
         <div class="music-row">
         <c:forEach items="${it2}" var="music">
@@ -229,18 +244,54 @@
                     </tr>
                     </thead>
                     <tbody>
+
                     <c:forEach items="${playlists}" var="playlist">
+                        <tr>
                         <th scope="row">${playlist.getName()}</th>
                         <td>${playlist.getVisibilty()}</td>
                         <td><button class="btn btn-primary"><a href="/user/showPlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Show Songs</a></button>
-                        <button class="btn btn-success" id="PlayPlaylistBtn" data-playid="${playlist.getId()}">Play</button>
-                        <button class="btn btn-info" id="EnqueuePlaylistBtn" data-playid="${playlist.getId()}">Enqueue</button>
+                        <button class="btn btn-success PlayPlaylistBtn" data-playid="${playlist.getId()}">Play</button>
+                        <button class="btn btn-info EnqueuePlaylistBtn" data-playid="${playlist.getId()}">Enqueue</button>
                             <button class="btn btn-danger"><a href="/user/DeletePlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Delete Playlist</a></button></td>
-
+                        </tr>
                     </c:forEach>
+
                     </tbody>
                 </table>
         <div class="alert-primary mb0 infotext"> <h3><a href="/user/addPlaylist">Click Here</a> to add a new playlist</h3> </div>
+        <h2 style="display: block; margin: 15px 0">Other User's Shared Playlists</h2>
+        <%
+            List sharedPlaylists = pi.selectByVisibility("global");
+            ListIterator lit = sharedPlaylists.listIterator();
+            pageContext.setAttribute("sharedplaylists", lit);
+        %>
+        <table class="table table-hover ">
+            <thead class="thead-dark" style="color: #fff; background-color: #444;border-radius: 15px;">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Created By</th>
+                <th scope="col">Visibility</th>
+                <th scope="col">Actions</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <c:forEach items="${sharedplaylists}" var="playlist">
+                <tr>
+                    <th scope="row">${playlist.getName()}</th>
+                    <th scope="row">${playlist.getUser().getName()}</th>
+                    <td>${playlist.getVisibilty()}</td>
+                    <td><button class="btn btn-primary"><a href="/user/showPlaylist?id=${playlist.getId()}" style="text-decoration: none;color: unset">Show Songs</a></button>
+                        <button class="btn btn-success PlayPlaylistBtn" data-playid="${playlist.getId()}">Play</button>
+                        <button class="btn btn-info EnqueuePlaylistBtn" data-playid="${playlist.getId()}">Enqueue</button>
+                    </td>
+                </tr>
+            </c:forEach>
+
+            </tbody>
+        </table>
         <%
             }
         %>
@@ -412,7 +463,8 @@
 
             ////// Music Items Overlay Functions
 
-            $('.music-item-body').hover(function() {
+            $('body').on('mouseenter','.music-item-body',function() {
+
                 // e here points to music-item-body
                 // we check if e's first child is a div or not and only then update the first child
                 // so that we dont fall into a repeated loop of selecting first childs i.e span, then icons etc
@@ -426,26 +478,44 @@
                 // target.toggle();
                 // console.log(target);
 
-                $(this).find('div').toggle();
+                $(this).find('div').show();
+
+            });
+            $('body').on('mouseleave','.music-item-body',function() {
+
+                // e here points to music-item-body
+                // we check if e's first child is a div or not and only then update the first child
+                // so that we dont fall into a repeated loop of selecting first childs i.e span, then icons etc
+                // // Then we toggle it
+                // var target = $(e.target);
+                // if (jQuery(target.children()[0]).is("div"))
+                //     target = target.children()[0];
+                // // console.log(target);
+                // target = jQuery(target);
+                // // target.setAttribute('style', 'display:block');
+                // target.toggle();
+                // console.log(target);
+
+                $(this).find('div').hide();
 
             });
 
             // For Highlighting the buttons on overlay
-            $('.music-item-hover .music-overlay-buttons').on('mouseenter', function() {
+            $('body').on('mouseenter','.music-item-hover .music-overlay-buttons', function() {
                 // console.log(e);
                 // var target = jQuery(e.currentTarget);
                 // $(target).css('opacity', '1');
                 $(this).css('opacity', '1');
             });
 
-            $('.music-item-hover .music-overlay-buttons').on('mouseleave', function(e) {
+            $('body').on('mouseleave','.music-item-hover .music-overlay-buttons', function(e) {
                 // console.log('loll');
                 // var target = jQuery(e.traget);
                 $(this).css('opacity', '0.75');
             });
 
             // Add song to queue button
-            $('.add-to-queue').click(function(e) {
+            $('body').on('click','.add-to-queue',function(e) {
                 e = jQuery(e.target);
                 var x = e.parents().eq(3);
                 var y = x.find('li');
@@ -461,7 +531,7 @@
 
 
             // Pressing the play button
-            $('.music-item-hover .play').click(function playButton() {
+            $('body').on('click','.music-item-hover .play',function playButton() {
                 // First make all pause buttons disappear and play buttons appear
                 $('.music-item-hover .play').show();
                 $('.music-item-hover .pause').hide();
@@ -492,7 +562,7 @@
             });
 
             // Clicking on Pause button on the overlay
-            $('.music-item-hover .pause').click(function() {
+            $('body').on('click','.music-item-hover .pause',function() {
                 audio.pause();
                 $('.music-item-hover .play').show();
                 $('.music-item-hover .pause').hide();
@@ -501,7 +571,7 @@
             });
 
             // Clicking on the add review button
-            $('.music-item-hover .rate').click(function() {
+            $('body').on('click','.music-item-hover .rate',function() {
                 var music_id=$(this).parents().eq(2).find('li').attr('songid');
                 console.log(music_id);
                 $.confirm({
@@ -765,7 +835,7 @@
             });
 
             // Play Playlist Button
-            $('#PlayPlaylistBtn').click(function(){
+            $('.PlayPlaylistBtn').click(function(){
                 $.ajax({
                     url : 'sendPlaylistData',
                     data : {
@@ -799,7 +869,7 @@
                     }
                 });
             });
-            $('#EnqueuePlaylistBtn').click(function(){
+            $('.EnqueuePlaylistBtn').click(function(){
                 $.ajax({
                     url : 'sendPlaylistData',
                     data : {
